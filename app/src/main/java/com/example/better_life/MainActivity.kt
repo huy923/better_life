@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         container = findViewById(R.id.container)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // d
+        // Normal app will show home layout first
         showLayout(R.layout.layout_home)
 
         bottomNav.setOnItemSelectedListener { item ->
@@ -32,6 +32,14 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_nutrition -> {
                     showLayout(R.layout.fragment_nutrition)
+                    true
+                }
+                R.id.nav_goals -> {
+                    showLayout(R.layout.fragment_goals)
+                    true
+                }
+                R.id.nav_settings -> {
+                    showLayout(R.layout.fragment_settings)
                     true
                 }
                 else -> false

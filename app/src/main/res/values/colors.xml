@@ -55,4 +55,8 @@
     <color name="step_bar_inactive">#E0E0E0</color>
     <color name="step_bar_active">#66BB6A</color>
     <color name="trend_up">#66BB6A</color>
+
+    <!-- Goals Specific Colors -->
+    <color name="goals_purple">#9C27B0</color>
+    <color name="goals_streak_orange">#FF9800</color>
 </resources>

@@ -8,6 +8,7 @@
         android:id="@+id/nav_health"
         android:icon="@drawable/ic_heart"
         android:title="Sức khỏe" />
+
     <item
         android:id="@+id/nav_nutrition"
         android:icon="@drawable/ic_nutrition"

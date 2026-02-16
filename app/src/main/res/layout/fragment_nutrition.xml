@@ -378,11 +378,17 @@
                         android:orientation="vertical"
                         android:padding="12dp">
 
-                        <ImageView
+<!--                        <ImageView-->
+<!--                            android:layout_width="40dp"-->
+<!--                            android:layout_height="40dp"-->
+<!--                            android:src="@drawable/ic_fire" />-->
+                        <TextView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_fire" />
-
+                            android:text="🔥"
+                            android:textSize="30sp"
+                            android:textColor="@color/text_title"
+                            android:textStyle="bold"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
