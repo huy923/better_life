@@ -17,6 +17,7 @@
 
             <!-- Top Bar -->
             <LinearLayout
+                android:id="@+id/go_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -304,7 +305,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="🤖 AI gợi ý cho bạn"
+                android:text=" Gợi ý cho bạn"
                 android:textColor="@color/text_title"
                 android:textSize="18sp"
                 android:textStyle="bold" />

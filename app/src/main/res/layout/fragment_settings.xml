@@ -242,11 +242,13 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/circle_white_alpha"
                 android:backgroundTint="#FEEBEE"
-                android:text="⏻ Đăng xuất"
+                android:text="Đăng xuất"
                 android:textColor="#EF5350"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_power_off"
+                android:drawablePadding="8dp"
+                android:gravity="center" />
 
         </LinearLayout>
     </ScrollView>

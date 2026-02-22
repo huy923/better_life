@@ -3,6 +3,7 @@ package com.example.better_life
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        ActionBar actionBar = getSh;
         container = findViewById(R.id.container)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
