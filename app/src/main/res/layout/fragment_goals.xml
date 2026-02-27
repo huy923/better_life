@@ -143,6 +143,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginEnd="17dp"
+                            android:layout_marginBottom="1dp"
                             android:text="🔥 15 ngày"
                             android:textColor="@color/goals_streak_orange"
                             android:textSize="12sp"
@@ -331,6 +334,7 @@
             </androidx.cardview.widget.CardView>
 
             <!-- Goal 5: Exercise -->
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -341,56 +345,45 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:gravity="center_vertical"
                     android:padding="16dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_muscle" />
 
-                        <ImageView
-                            android:id="@+id/iv_goal5_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_muscle" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tv_goal5_title"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_toEndOf="@id/iv_goal1_icon"
-                            android:text="Tập thể dục 30 phút"
-                            android:textColor="@color/text_title"
-                            android:textStyle="bold" />
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Không ăn vặt sau 8h tối"
+                                android:textColor="@color/text_secondary"
+                                android:textStyle="bold" />
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_marginStart="4dp"
+                                android:src="@drawable/ic_check_circle" />
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/tv_goal5_title"
-                            android:layout_marginStart="12dp"
-                            android:layout_toEndOf="@id/iv_goal5_icon"
-                            android:text="20/30 phút"
+                            android:text="1/1 ngày 🔥 22 ngày"
                             android:textColor="@color/text_secondary"
                             android:textSize="12sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:text="🔥 3 ngày"
-                            android:textColor="@color/goals_streak_orange"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                    <ProgressBar
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="6dp"
-                        android:layout_marginTop="12dp"
-                        android:progress="66"
-                        android:progressDrawable="@drawable/mini_progress_bar" />
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
