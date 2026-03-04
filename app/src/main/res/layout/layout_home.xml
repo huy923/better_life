@@ -2,7 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +14,7 @@
         <!-- Header Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="340dp"
             android:background="@drawable/header_bg"
             android:padding="24dp">
 
@@ -20,9 +22,10 @@
                 android:id="@+id/tv_greeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Chào buổi sáng 👋"
-                android:textColor="#E0F2F1"
-                android:textSize="16sp"
+                android:textColor="#CCFFFFFF"
+                android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,28 +35,31 @@
                 android:layout_height="wrap_content"
                 android:text="Nguyễn Văn A"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_greeting" />
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_watch"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/circle_white_alpha"
-                android:padding="6dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_watch"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Circular Progress -->
             <FrameLayout
-                android:layout_width="160dp"
-                android:layout_height="160dp"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_username">
+                app:layout_constraintTop_toBottomOf="@id/tv_username"
+                app:layout_constraintVertical_bias="0.3">
 
                 <ProgressBar
                     android:layout_width="match_parent"
@@ -72,25 +78,26 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/footprints"
-                        app:tint="@color/white" />
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_steps"
+                        app:tint="@color/white"
+                        android:alpha="0.8"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="7,200"
                         android:textColor="@color/white"
-                        android:textSize="28sp"
+                        android:textSize="36sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="/ 10,000 bước"
-                        android:textColor="#E0F2F1"
-                        android:textSize="12sp" />
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="13sp" />
                 </LinearLayout>
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -100,25 +107,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="-40dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp">
+            android:layout_marginTop="-45dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="6dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="16dp">
+                android:padding="18dp">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:src="@drawable/ic_robot" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="14dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -127,20 +134,23 @@
                         android:layout_height="wrap_content"
                         android:text="✨ AI Coach"
                         android:textColor="@color/ai_coach_icon"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="&quot;Tuyệt vời! Bạn đã đi được 72% mục tiêu...&quot;"
-                        android:textColor="@color/text_body" />
+                        android:textColor="@color/text_body"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <View
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:background="@drawable/dot_purple" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -150,7 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:text="Chỉ số sức khỏe"
             android:textColor="@color/text_title"
             android:textSize="18sp"
@@ -159,9 +169,7 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:columnCount="2"
-            android:rowCount="2">
+            android:columnCount="2">
 
             <!-- Heart Rate -->
             <include
@@ -205,7 +213,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="Hành động nhanh"
             android:textColor="@color/text_title"
             android:textSize="18sp"
@@ -229,6 +237,10 @@
                 <include android:id="@+id/action_weight" layout="@layout/item_quick_action_weight" />
             </LinearLayout>
         </HorizontalScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
 
     </LinearLayout>
 </ScrollView>
