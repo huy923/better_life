@@ -59,4 +59,10 @@
     <!-- Goals Specific Colors -->
     <color name="goals_purple">#9C27B0</color>
     <color name="goals_streak_orange">#FF9800</color>
+
+    <!-- Sleep Specific Colors -->
+    <color name="awake_color">#74777F</color>
+    <color name="light_sleep_color">#29B6F6</color>
+    <color name="deep_sleep_color">#3F51B5</color>
+    <color name="rem_sleep_color">#9C27B0</color>
 </resources>

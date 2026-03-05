@@ -1,3 +1,45 @@
 <resources>
-    <string name="app_name">Better_Life</string>
+    <string name="app_name">Better Life</string>
+    <!-- Navigation -->
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_health">Sức khỏe</string>
+    <string name="nav_chat">AI Tư vấn</string>
+    <string name="nav_goals">Mục tiêu</string>
+    <string name="nav_settings">Cài đặt</string>
+
+    <!-- Home -->
+    <string name="greeting">Chào buổi sáng 👋</string>
+    <string name="steps_unit">bước</string>
+    <string name="ai_coach">AI Coach</string>
+    <string name="ai_coach_msg">"Tuyệt vời! Bạn đã đi được 72% mục tiêu..."</string>
+    <string name="health_index">Chỉ số sức khỏe</string>
+    <string name="heart_rate">Nhịp tim</string>
+    <string name="calories">Calories</string>
+    <string name="sleep">Giấc ngủ</string>
+    <string name="water">Nước uống</string>
+    <string name="quick_actions">Hành động nhanh</string>
+    <string name="log_meal">Ghi bữa ăn</string>
+    <string name="start_run">Bắt đầu chạy</string>
+    <string name="drink_water">Uống nước</string>
+    <string name="weight">Cân nặng</string>
+
+    <!-- Settings -->
+    <string name="settings">Cài đặt</string>
+    <string name="appearance">GIAO DIỆN</string>
+    <string name="dark_mode">Chế độ tối</string>
+    <string name="notifications">THÔNG BÁO</string>
+    <string name="general_notif">Thông báo chung</string>
+    <string name="run_reminder">Nhắc nhở chạy bộ</string>
+    <string name="water_reminder">Nhắc uống nước</string>
+    <string name="sleep_reminder">Nhắc giờ ngủ</string>
+    <string name="options">TÙY CHỌN</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="unit">Đơn vị</string>
+    <string name="info">THÔNG TIN</string>
+    <string name="privacy">Quyền riêng tư</string>
+    <string name="help_support">Trợ giúp &amp; Hỗ trợ</string>
+    <string name="version">Phiên bản</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="lang_vi">🇻🇳 Tiếng Việt</string>
+    <string name="lang_en">🇺🇸 English</string>
 </resources>

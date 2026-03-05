@@ -326,11 +326,13 @@
                     android:gravity="center_vertical"
                     android:padding="16dp">
 
-                    <ImageView
+                    <TextView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_muscle" />
-
+                        android:text="💪"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        />
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
