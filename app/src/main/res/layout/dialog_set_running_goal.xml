@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_goal_dialog_title"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="4dp"
             android:text="Tùy chỉnh mục tiêu không giới hạn"
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
@@ -36,6 +36,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="6dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_xmark"
             app:tint="@color/text_secondary" />
     </RelativeLayout>
@@ -45,91 +47,207 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:columnCount="2"
-        android:rowCount="2">
+        android:columnCount="2">
 
-        <!-- Steps Goal -->
-        <LinearLayout
+        <!-- Steps Goal (Selected) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/option_steps"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:background="@drawable/bg_pill_shape"
-            android:backgroundTint="@color/running_green"
-            android:gravity="center"
-            android:paddingVertical="12dp">
-            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_steps" app:tint="@color/white" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Số bước" android:textColor="@color/white" android:textStyle="bold" android:textSize="13sp" />
-        </LinearLayout>
+            android:layout_margin="6dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#26CE8D"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+                <ImageView
+                    android:id="@+id/iv_option_steps_icon"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_shoe"
+                    app:tint="@color/white" />
+                <TextView
+                    android:id="@+id/tv_option_steps_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Số bước"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Time Goal -->
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/option_time"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:background="@drawable/bg_pill_shape"
-            android:backgroundTint="#F0F4F8"
-            android:gravity="center"
-            android:paddingVertical="12dp">
-            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_watch" app:tint="@color/text_secondary" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Thời gian (phút)" android:textColor="@color/text_secondary" android:textStyle="bold" android:textSize="13sp" />
-        </LinearLayout>
+            android:layout_margin="6dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#F0F4F8"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+                <ImageView
+                    android:id="@+id/iv_option_time_icon"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_watch"
+                    app:tint="@color/text_secondary" />
+                <TextView
+                    android:id="@+id/tv_option_time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Thời gian (phút)"
+                    android:textColor="@color/text_secondary"
+                    android:textStyle="bold"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Calories Goal -->
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/option_calories"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:background="@drawable/bg_pill_shape"
-            android:backgroundTint="#F0F4F8"
-            android:gravity="center"
-            android:paddingVertical="12dp">
-            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_fire" app:tint="#FFA726" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Calories (kcal)" android:textColor="@color/text_secondary" android:textStyle="bold" android:textSize="13sp" />
-        </LinearLayout>
+            android:layout_margin="6dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#F0F4F8"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+                <ImageView
+                    android:id="@+id/iv_option_calories_icon"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_fire"
+                    app:tint="#FFA726" />
+                <TextView
+                    android:id="@+id/tv_option_calories_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Calories (kcal)"
+                    android:textColor="@color/text_secondary"
+                    android:textStyle="bold"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- No Goal -->
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/option_none"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_columnWeight="1"
-            android:layout_margin="4dp"
-            android:background="@drawable/bg_pill_shape"
-            android:backgroundTint="#F0F4F8"
-            android:gravity="center"
-            android:paddingVertical="12dp">
-            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_xmark" app:tint="#EF5350" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Không mục tiêu" android:textColor="@color/text_secondary" android:textStyle="bold" android:textSize="13sp" />
-        </LinearLayout>
+            android:layout_margin="6dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#F0F4F8"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+                <ImageView
+                    android:id="@+id/iv_option_none_icon"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_xmark"
+                    app:tint="#EF5350" />
+                <TextView
+                    android:id="@+id/tv_option_none_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Không mục tiêu"
+                    android:textColor="@color/text_secondary"
+                    android:textStyle="bold"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </GridLayout>
 
-    <!-- Input Field -->
-    <LinearLayout
+    <!-- Custom Input Area -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/bg_chat_input_field"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="16dp">
+        app:cardBackgroundColor="#F5F5F5"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#E0E0E0"
+        app:strokeWidth="1dp">
 
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="Nhập số bước"
-            android:textColorHint="@color/text_secondary"
-            android:textSize="16sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_chevron_right"
-            android:rotation="90"
-            app:tint="@color/text_secondary" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/et_goal_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="Nhập số bước"
+                android:inputType="number"
+                android:textColor="@color/text_title"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:rotation="-90"
+                    app:tint="@color/text_secondary" />
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:rotation="90"
+                    app:tint="@color/text_secondary" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:layout_width="match_parent"
@@ -143,7 +261,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save_goal"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
         android:layout_marginTop="24dp"
         android:text="Lưu mục tiêu"
         android:textAllCaps="false"
@@ -151,7 +269,8 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:cornerRadius="16dp"
-        android:backgroundTint="@color/running_green"
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
+        android:backgroundTint="#26CE8D"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        app:elevation="4dp" />
 
 </LinearLayout>
