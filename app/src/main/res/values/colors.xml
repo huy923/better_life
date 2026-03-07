@@ -65,4 +65,10 @@
     <color name="light_sleep_color">#29B6F6</color>
     <color name="deep_sleep_color">#3F51B5</color>
     <color name="rem_sleep_color">#9C27B0</color>
+
+    <!-- Running Specific Colors (Updated for Accuracy) -->
+    <color name="running_green">#26CE8D</color>
+    <color name="running_green_dark">#1DB97B</color>
+    <color name="running_green_light">#E8F9F2</color>
+    <color name="running_blue">#29B6F6</color>
 </resources>

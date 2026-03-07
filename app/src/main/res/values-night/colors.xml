@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#1E1E1E</color>
+    <color name="black">#FFFFFFFF</color>
+
+    <color name="bg_main">#121212</color>
+
+    <color name="text_title">#E1E2E5</color>
+    <color name="text_body">#C1C7CE</color>
+    <color name="text_secondary">#8E9199</color>
+
+    <color name="card_heart">#3D1D1D</color>
+    <color name="card_calories">#3D2C1D</color>
+    <color name="card_sleep">#261D3D</color>
+    <color name="card_water">#1D3D22</color>
+
+    <color name="ai_coach_bg">#1E1E1E</color>
+
+    <!-- Adjusting background colors for items in dark mode -->
+    <color name="primary_teal_light">#1A3330</color>
+    <color name="health_stat_bg">#2C2C2C</color>
+</resources>

@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Lưu lại trạng thái trang hiện tại nếu activity bị recreate (do đổi theme hoặc locale)
         savedInstanceState?.let {
             currentLayoutId = it.getInt("CURRENT_LAYOUT_ID", R.layout.layout_home)
         }
@@ -37,10 +36,7 @@ class MainActivity : AppCompatActivity() {
         container = findViewById(R.id.container)
         bottomNav = findViewById(R.id.bottom_navigation)
 
-        // Hiển thị layout hiện tại
         showLayout(currentLayoutId)
-        
-        // Đồng bộ icon BottomNav với layout hiện tại
         syncBottomNav(currentLayoutId)
 
         bottomNav.setOnItemSelectedListener { item ->
@@ -52,7 +48,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_settings -> R.layout.fragment_settings
                 else -> return@setOnItemSelectedListener false
             }
-
             showLayout(layoutId)
             true
         }
@@ -81,65 +76,93 @@ class MainActivity : AppCompatActivity() {
         val view = LayoutInflater.from(this).inflate(layoutId, container, false)
         container.addView(view)
 
-        // Xử lý nút quay lại
         view.findViewById<View>(R.id.btn_back)?.setOnClickListener {
             showLayout(R.layout.layout_home)
             syncBottomNav(R.layout.layout_home)
         }
 
-        // Logic riêng cho từng trang
         when (layoutId) {
             R.layout.layout_home -> {
                 view.findViewById<View>(R.id.card_heart_rate)?.setOnClickListener { showLayout(R.layout.layout_heart_rate_detail) }
                 view.findViewById<View>(R.id.card_calories)?.setOnClickListener { showLayout(R.layout.layout_calories_detail) }
                 view.findViewById<View>(R.id.card_sleep)?.setOnClickListener { showLayout(R.layout.layout_sleep_detail) }
+                view.findViewById<View>(R.id.action_run)?.setOnClickListener { showLayout(R.layout.layout_running_detail) }
             }
-            R.layout.fragment_settings -> {
-                setupSettingsPage(view)
+            R.layout.layout_running_detail -> {
+                view.findViewById<View>(R.id.btn_bell_notif)?.setOnClickListener {
+                    showRunningNotificationsDialog()
+                }
+                // Gán sự kiện cho nút Đặt mục tiêu (Line 52-62)
+                view.findViewById<View>(R.id.btn_target)?.setOnClickListener {
+                    showSetGoalDialog()
+                }
             }
+            R.layout.fragment_settings -> setupSettingsPage(view)
         }
     }
 
-    private fun setupSettingsPage(view: View) {
-        // Dark Mode
-        val switchDarkMode = view.findViewById<SwitchCompat>(R.id.switch_dark_mode)
-        val tvDarkModeTitle = view.findViewById<TextView>(R.id.tv_dark_mode_title)
+    private fun showRunningNotificationsDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_running_notifications, null)
+        val dialog = AlertDialog.Builder(this, R.style.CustomDialogTheme)
+            .setView(dialogView)
+            .create()
 
-        val isNightMode = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
-        switchDarkMode.isChecked = isNightMode
-        tvDarkModeTitle.text = if (isNightMode) getString(R.string.dark_mode) + ": On" else getString(R.string.dark_mode) + ": Off"
-
-        switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
+        dialogView.findViewById<View>(R.id.btn_close_dialog).setOnClickListener {
+            dialog.dismiss()
         }
 
-        // Language
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    }
+
+    private fun showSetGoalDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_set_running_goal, null)
+        val dialog = AlertDialog.Builder(this, R.style.CustomDialogTheme)
+            .setView(dialogView)
+            .create()
+
+        dialogView.findViewById<View>(R.id.btn_close_goal_dialog).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogView.findViewById<View>(R.id.btn_save_goal).setOnClickListener {
+            // Logic lưu mục tiêu ở đây
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    }
+
+    private fun setupSettingsPage(view: View) {
+        val switchDarkMode = view.findViewById<SwitchCompat>(R.id.switch_dark_mode)
+        val tvDarkModeTitle = view.findViewById<TextView>(R.id.tv_dark_mode_title)
+        val isNightMode = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+        switchDarkMode.isChecked = isNightMode
+        tvDarkModeTitle.text = getString(R.string.dark_mode)
+
+        switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+            AppCompatDelegate.setDefaultNightMode(if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         val layoutLanguage = view.findViewById<View>(R.id.layout_language)
         val tvCurrentLanguage = view.findViewById<TextView>(R.id.tv_current_language)
-        
         val currentLocale = AppCompatDelegate.getApplicationLocales()[0]?.language ?: "vi"
         tvCurrentLanguage.text = if (currentLocale == "en") getString(R.string.lang_en) else getString(R.string.lang_vi)
 
-        layoutLanguage.setOnClickListener {
-            showLanguageDialog()
-        }
+        layoutLanguage.setOnClickListener { showLanguageDialog() }
     }
 
     private fun showLanguageDialog() {
         val languages = arrayOf(getString(R.string.lang_vi), getString(R.string.lang_en))
         val languageCodes = arrayOf("vi", "en")
-        
         val currentLocale = AppCompatDelegate.getApplicationLocales()[0]?.language ?: "vi"
         val checkedItem = if (currentLocale == "en") 1 else 0
 
         AlertDialog.Builder(this)
-            .setTitle(R.string.language)
+            .setTitle(getString(R.string.language))
             .setSingleChoiceItems(languages, checkedItem) { dialog, which ->
-                val appLocales: LocaleListCompat = LocaleListCompat.forLanguageTags(languageCodes[which])
+                val appLocales = LocaleListCompat.forLanguageTags(languageCodes[which])
                 AppCompatDelegate.setApplicationLocales(appLocales)
                 dialog.dismiss()
             }

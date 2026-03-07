@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/bg_dialog_rounded">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_goal_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đặt mục tiêu chạy"
+            android:textColor="@color/text_title"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_goal_dialog_title"
+            android:layout_marginTop="2dp"
+            android:text="Tùy chỉnh mục tiêu không giới hạn"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:id="@+id/btn_close_goal_dialog"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_xmark"
+            app:tint="@color/text_secondary" />
+    </RelativeLayout>
+
+    <!-- Goal Options Grid -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:columnCount="2"
+        android:rowCount="2">
+
+        <!-- Steps Goal -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_pill_shape"
+            android:backgroundTint="@color/running_green"
+            android:gravity="center"
+            android:paddingVertical="12dp">
+            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_steps" app:tint="@color/white" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Số bước" android:textColor="@color/white" android:textStyle="bold" android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- Time Goal -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_pill_shape"
+            android:backgroundTint="#F0F4F8"
+            android:gravity="center"
+            android:paddingVertical="12dp">
+            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_watch" app:tint="@color/text_secondary" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Thời gian (phút)" android:textColor="@color/text_secondary" android:textStyle="bold" android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- Calories Goal -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_pill_shape"
+            android:backgroundTint="#F0F4F8"
+            android:gravity="center"
+            android:paddingVertical="12dp">
+            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_fire" app:tint="#FFA726" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Calories (kcal)" android:textColor="@color/text_secondary" android:textStyle="bold" android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- No Goal -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_pill_shape"
+            android:backgroundTint="#F0F4F8"
+            android:gravity="center"
+            android:paddingVertical="12dp">
+            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_xmark" app:tint="#EF5350" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Không mục tiêu" android:textColor="@color/text_secondary" android:textStyle="bold" android:textSize="13sp" />
+        </LinearLayout>
+    </GridLayout>
+
+    <!-- Input Field -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_chat_input_field"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="Nhập số bước"
+            android:textColorHint="@color/text_secondary"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_chevron_right"
+            android:rotation="90"
+            app:tint="@color/text_secondary" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Bạn có thể nhập bất kỳ số bước nào: 100, 1000, 50000..."
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <!-- Action Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_goal"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:text="Lưu mục tiêu"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        android:backgroundTint="@color/running_green"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
+
+</LinearLayout>

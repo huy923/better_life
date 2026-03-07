@@ -7,6 +7,12 @@
     <string name="nav_goals">Mục tiêu</string>
     <string name="nav_settings">Cài đặt</string>
 
+    <!-- General -->
+    <string name="today" translatable="false">Hôm nay</string>
+    <string name="yesterday" translatable="false">Hôm qua</string>
+    <string name="back">Quay lại</string>
+    <string name="completed">Hoàn thành</string>
+
     <!-- Home -->
     <string name="greeting">Chào buổi sáng 👋</string>
     <string name="steps_unit">bước</string>
@@ -22,6 +28,56 @@
     <string name="start_run">Bắt đầu chạy</string>
     <string name="drink_water">Uống nước</string>
     <string name="weight">Cân nặng</string>
+
+    <!-- Health Detail -->
+    <string name="bpm">bpm</string>
+    <string name="last_measured">Đo lần cuối: 5 phút trước</string>
+    <string name="low">Thấp nhất</string>
+    <string name="average">Trung bình</string>
+    <string name="high">Cao nhất</string>
+    <string name="steps_this_week">Bước chân tuần này</string>
+    <string name="today_overview">Tổng quan hôm nay</string>
+    <string name="history">Lịch sử đo</string>
+    <string name="chart_today">Biểu đồ hôm nay</string>
+    <string name="weekly_average">Trung bình tuần</string>
+
+    <!-- Nutrition -->
+    <string name="total_today">Tổng hôm nay</string>
+    <string name="protein">Protein</string>
+    <string name="carbs">Carbs</string>
+    <string name="fat">Fat</string>
+    <string name="meals_today">Bữa ăn hôm nay</string>
+    <string name="breakfast">Bữa sáng</string>
+    <string name="lunch">Bữa trưa</string>
+    <string name="dinner">Bữa tối</string>
+    <string name="ai_suggestion">AI gợi ý cho bạn</string>
+    <string name="kcal">kcal</string>
+    <string name="meal_distribution">Phân bổ bữa ăn</string>
+    <string name="meal_photos">Ảnh bữa ăn</string>
+    <string name="take_photo">Chụp ảnh bữa ăn</string>
+    <string name="ai_calc_auto">AI sẽ tính calories tự động</string>
+
+    <!-- Goals -->
+    <string name="goals_discipline">Mục tiêu &amp; Kỷ luật</string>
+    <string name="completed_today">Hoàn thành hôm nay</string>
+    <string name="keep_it_up">Cố lên! Bạn gần hoàn thành rồi! 🔥</string>
+    <string name="daily_walk">Đi bộ mỗi ngày</string>
+    <string name="drink_enough_water">Uống đủ nước</string>
+    <string name="enough_sleep">Ngủ đủ giấc</string>
+    <string name="no_snack_after_8">Không ăn vặt sau 8h tối</string>
+    <string name="exercise_30_min">Tập thể dục 30 phút</string>
+    <string name="add_new_goal">+ Thêm mục tiêu mới</string>
+    <string name="streak_days">%1$d ngày</string>
+
+    <!-- Sleep Detail -->
+    <string name="sleep_hours">7h 30p</string>
+    <string name="sleep_start">Đi ngủ</string>
+    <string name="wake_up">Thức dậy</string>
+    <string name="deep_sleep">Ngủ sâu</string>
+    <string name="sleep_stages">Giai đoạn giấc ngủ</string>
+    <string name="awake">Thức</string>
+    <string name="light_sleep">Ngủ nông</string>
+    <string name="rem">REM</string>
 
     <!-- Settings -->
     <string name="settings">Cài đặt</string>
@@ -42,4 +98,12 @@
     <string name="logout">Đăng xuất</string>
     <string name="lang_vi">🇻🇳 Tiếng Việt</string>
     <string name="lang_en">🇺🇸 English</string>
+
+    <!-- Running -->
+    <string name="running">Chạy bộ</string>
+    <string name="walking">Đi bộ</string>
+    <string name="time">Thời gian</string>
+    <string name="distance">Khoảng cách</string>
+    <string name="activity_history">Lịch sử hoạt động</string>
+    <string name="steps">Bước</string>
 </resources>
