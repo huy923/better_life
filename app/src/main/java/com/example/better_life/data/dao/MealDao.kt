@@ -17,4 +17,10 @@ interface MealDao {
 
     @Query("SELECT * FROM meal_records WHERE mealType = :type AND date(timestamp / 1000, 'unixepoch') = date('now')")
     suspend fun getMealByTypeToday(type: String): MealRecord?
+
+    @Query("SELECT * FROM meal_records WHERE timestamp < :threshold")
+    suspend fun getOldMeals(threshold: Long): List<MealRecord>
+
+    @Delete
+    suspend fun deleteMeals(meals: List<MealRecord>)
 }

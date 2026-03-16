@@ -4,6 +4,7 @@ import com.example.better_life.data.database.AppDatabase
 import com.example.better_life.data.entities.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.Calendar
 
 object DemoData {
     suspend fun insertSampleData(database: AppDatabase) {
@@ -45,6 +46,40 @@ object DemoData {
             goalDao.insert(Goal(title = "Ngủ đủ giấc", targetValue = 8.0, currentValue = 7.5, unit = "giờ", streak = 5, iconName = "ic_moon", isCompleted = true))
             goalDao.insert(Goal(title = "Không ăn vặt sau 8h tối", targetValue = 1.0, currentValue = 1.0, unit = "ngày", streak = 22, iconName = "ic_no_entry", isCompleted = true))
             goalDao.insert(Goal(title = "Tập thể dục 30 phút", targetValue = 30.0, currentValue = 20.0, unit = "phút", streak = 3, iconName = "ic_muscle"))
+
+            // 6. Sample Sleep Records
+            val sleepDao = database.sleepDao()
+            val cal = Calendar.getInstance()
+            cal.set(Calendar.HOUR_OF_DAY, 0)
+            cal.set(Calendar.MINUTE, 0)
+            cal.set(Calendar.SECOND, 0)
+            cal.set(Calendar.MILLISECOND, 0)
+            val today = cal.timeInMillis
+
+            sleepDao.insert(SleepRecord(
+                startTime = today - 3600000 * 8, // 11 PM
+                endTime = today - 3600000 * 0 + 3600000 * 6 + 1800000, // 6:30 AM
+                deepSleepMinutes = 165,
+                lightSleepMinutes = 135,
+                remSleepMinutes = 120,
+                awakeMinutes = 30,
+                score = 85,
+                recordDate = today // Updated from 'date' to 'recordDate'
+            ))
+            
+            // Add more historical data for weekly chart
+            for (i in 1..6) {
+                sleepDao.insert(SleepRecord(
+                    startTime = today - 86400000L * i - 3600000 * 7,
+                    endTime = today - 86400000L * i + 3600000 * 1,
+                    deepSleepMinutes = 150 + i * 5,
+                    lightSleepMinutes = 140 - i * 5,
+                    remSleepMinutes = 110,
+                    awakeMinutes = 20,
+                    score = 80 + i,
+                    recordDate = today - 86400000L * i // Updated from 'date' to 'recordDate'
+                ))
+            }
         }
     }
 }

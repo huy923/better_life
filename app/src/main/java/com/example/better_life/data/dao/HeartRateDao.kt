@@ -13,14 +13,14 @@ interface HeartRateDao {
     suspend fun insert(record: HeartRateRecord)
 
     @Query("SELECT * FROM heart_rate_records ORDER BY timestamp DESC LIMIT 1")
-    suspend fun getLatestRecord(): HeartRateRecord?
+    fun getLatestRecord(): Flow<HeartRateRecord?>
 
     @Query("SELECT AVG(bpm) FROM heart_rate_records")
-    suspend fun getAverageBpm(): Int
+    fun getAverageBpm(): Flow<Int?>
 
     @Query("SELECT MIN(bpm) FROM heart_rate_records")
-    suspend fun getMinBpm(): Int
+    fun getMinBpm(): Flow<Int?>
 
     @Query("SELECT MAX(bpm) FROM heart_rate_records")
-    suspend fun getMaxBpm(): Int
+    fun getMaxBpm(): Flow<Int?>
 }

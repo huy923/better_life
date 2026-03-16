@@ -82,14 +82,16 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_calories_total"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1,770"
+                            android:text="0"
                             android:textColor="@color/icon_calories"
                             android:textSize="32sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_calories_target"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="/ 2,500 kcal"
@@ -104,7 +106,7 @@
                         android:layout_height="60dp"
                         android:indeterminate="false"
                         android:max="2500"
-                        android:progress="1770"
+                        android:progress="0"
                         android:progressDrawable="@drawable/circular_progress_bar"
                         android:progressTint="@color/icon_calories"
                         android:rotation="-90"
@@ -113,77 +115,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Meal Distribution Chart -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Phân bổ bữa ăn"
-                        android:textColor="@color/text_title"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="24dp"
-                        android:gravity="bottom"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="bottom|center_horizontal"
-                            android:orientation="vertical">
-                            <View android:layout_width="40dp" android:layout_height="60dp" android:background="@drawable/mini_progress_bar" android:backgroundTint="@color/icon_calories" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Sáng" android:textSize="10sp" android:textColor="@color/text_secondary" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="bottom|center_horizontal"
-                            android:orientation="vertical">
-                            <View android:layout_width="40dp" android:layout_height="90dp" android:background="@drawable/mini_progress_bar" android:backgroundTint="@color/icon_calories" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Trưa" android:textSize="10sp" android:textColor="@color/text_secondary" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="bottom|center_horizontal"
-                            android:orientation="vertical">
-                            <View android:layout_width="40dp" android:layout_height="30dp" android:background="@drawable/mini_progress_bar" android:backgroundTint="@color/icon_calories" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Chiều" android:textSize="10sp" android:textColor="@color/text_secondary" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="bottom|center_horizontal"
-                            android:orientation="vertical">
-                            <View android:layout_width="40dp" android:layout_height="75dp" android:background="@drawable/mini_progress_bar" android:backgroundTint="@color/icon_calories" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Tối" android:textSize="10sp" android:textColor="@color/text_secondary" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Meal Photos Section -->
@@ -224,6 +155,7 @@
 
                     <!-- Camera Button Area -->
                     <LinearLayout
+                        android:id="@+id/btn_camera_capture"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -260,17 +192,12 @@
 
                     <!-- Meal History List -->
                     <LinearLayout
+                        android:id="@+id/ll_meal_history_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:orientation="vertical">
-
-                        <include layout="@layout/item_meal_history" />
-                        <include layout="@layout/item_meal_history" />
-                        <include layout="@layout/item_meal_history" />
-                        <include layout="@layout/item_meal_history" />
-                        <include layout="@layout/item_meal_history" />
-
+                        <!-- Meal items will be added here -->
                     </LinearLayout>
 
                 </LinearLayout>
