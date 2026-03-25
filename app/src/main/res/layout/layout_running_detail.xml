@@ -108,6 +108,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00:00"
@@ -145,7 +146,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_steps" app:tint="#66BB6A" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/text_title"/>
+                        <TextView android:id="@+id/tv_steps" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/text_title"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="bước" android:textSize="12sp" android:textColor="@color/text_secondary"/>
                     </LinearLayout>
 
@@ -156,7 +157,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_fire" app:tint="#FFA726" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/text_title"/>
+                        <TextView android:id="@+id/tv_calories" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/text_title"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="kcal" android:textSize="12sp" android:textColor="@color/text_secondary"/>
                     </LinearLayout>
 
@@ -167,7 +168,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_location" app:tint="#29B6F6" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0.00" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/text_title"/>
+                        <TextView android:id="@+id/tv_distance" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0.00" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/text_title"/>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="km" android:textSize="12sp" android:textColor="@color/text_secondary"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -205,14 +206,12 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/ll_running_history_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="20dp">
-
-                <include layout="@layout/item_running_history" />
-                <include layout="@layout/item_running_history" />
-
+                <!-- Records will be added here dynamically -->
             </LinearLayout>
 
         </LinearLayout>

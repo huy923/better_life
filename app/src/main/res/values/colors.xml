@@ -3,72 +3,52 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
 
-    <color name="bg_main">#F8FAFB</color>
-    <color name="primary_teal">#26A69A</color>
-    <color name="primary_teal_dark">#00796B</color>
-    <color name="primary_teal_light">#E0F2F1</color>
+    <!-- Warm Theme Palette -->
+    <color name="bg_main">#FFFBF5</color> <!-- Màu kem ấm -->
+    <color name="primary_teal">#FF8A65</color> <!-- Cam san hô ấm -->
+    <color name="primary_teal_dark">#E64A19</color>
+    <color name="primary_teal_light">#FBE9E7</color>
 
-    <color name="text_title">#1A1C1E</color>
-    <color name="text_body">#44474E</color>
-    <color name="text_secondary">#74777F</color>
+    <color name="text_title">#2D241E</color>
+    <color name="text_body">#5D4037</color>
+    <color name="text_secondary">#8D6E63</color>
 
-    <color name="card_heart">#FFEBEE</color>
-    <color name="icon_heart">#EF5350</color>
-    <color name="progress_heart">#EF5350</color>
+    <color name="card_heart">#FFF0F0</color>
+    <color name="icon_heart">#FF5252</color>
+    <color name="progress_heart">#FF5252</color>
 
     <color name="card_calories">#FFF3E0</color>
-    <color name="icon_calories">#FFA726</color>
-    <color name="progress_calories">#FFA726</color>
+    <color name="icon_calories">#FF9800</color>
+    <color name="progress_calories">#FF9800</color>
 
-    <color name="card_sleep">#EDE7F6</color>
-    <color name="icon_sleep">#7E57C2</color>
-    <color name="progress_sleep">#7E57C2</color>
+    <color name="card_sleep">#F3E5F5</color>
+    <color name="icon_sleep">#9C27B0</color>
+    <color name="progress_sleep">#9C27B0</color>
 
-    <color name="card_water">#E8F5E9</color>
-    <color name="icon_water">#66BB6A</color>
-    <color name="progress_water">#66BB6A</color>
+    <color name="card_water">#E3F2FD</color>
+    <color name="icon_water">#2196F3</color>
+    <color name="progress_water">#2196F3</color>
 
     <color name="ai_coach_bg">#FFFFFF</color>
-    <color name="ai_coach_icon">#7E57C2</color>
+    <color name="ai_coach_icon">#FF8A65</color>
 
-    <color name="nav_active">#26A69A</color>
-    <color name="nav_inactive">#74777F</color>
+    <color name="nav_active">#FF8A65</color>
+    <color name="nav_inactive">#BCAAA4</color>
 
-    <!-- Nutrition Specific Colors -->
-    <color name="nutrition_header_start">#26A69A</color>
-    <color name="nutrition_header_end">#4DB6AC</color>
-    <color name="protein_color">#FFA726</color>
-    <color name="carbs_color">#66BB6A</color>
-    <color name="fat_color">#FFD54F</color>
+    <color name="add_button_bg">#FF8A65</color>
+    <color name="trend_up">#4CAF50</color>
+    <color name="trend_down">#F44336</color>
 
-    <color name="breakfast_icon_bg">#FFF3E0</color>
-    <color name="breakfast_icon">#FFA726</color>
-    <color name="lunch_icon_bg">#E8F5E9</color>
-    <color name="lunch_icon">#66BB6A</color>
-    <color name="dinner_icon_bg">#EDE7F6</color>
-    <color name="dinner_icon">#7E57C2</color>
+    <color name="running_green">#4CAF50</color>
+    <color name="running_blue">#2196F3</color>
 
-    <color name="add_button_bg">#26A69A</color>
-
-    <!-- Health Specific Colors -->
-    <color name="health_stat_bg">#F5F5F5</color>
-    <color name="step_bar_inactive">#E0E0E0</color>
-    <color name="step_bar_active">#66BB6A</color>
-    <color name="trend_up">#66BB6A</color>
-
-    <!-- Goals Specific Colors -->
+    <!-- Goals Theme -->
     <color name="goals_purple">#9C27B0</color>
     <color name="goals_streak_orange">#FF9800</color>
 
-    <!-- Sleep Specific Colors -->
-    <color name="awake_color">#74777F</color>
-    <color name="light_sleep_color">#29B6F6</color>
-    <color name="deep_sleep_color">#3F51B5</color>
-    <color name="rem_sleep_color">#9C27B0</color>
-
-    <!-- Running Specific Colors (Updated for Accuracy) -->
-    <color name="running_green">#26CE8D</color>
-    <color name="running_green_dark">#1DB97B</color>
-    <color name="running_green_light">#E8F9F2</color>
-    <color name="running_blue">#29B6F6</color>
+    <!-- Sleep Stages -->
+    <color name="awake_color">#FFD54F</color>
+    <color name="light_sleep_color">#B39DDB</color>
+    <color name="deep_sleep_color">#7E57C2</color>
+    <color name="rem_sleep_color">#4DD0E1</color>
 </resources>

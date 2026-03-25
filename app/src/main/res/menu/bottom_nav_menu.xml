@@ -7,7 +7,9 @@
     <item
         android:id="@+id/nav_health"
         android:icon="@drawable/ic_heart"
-        android:title="Sức khỏe" />
+        android:title="Sức khỏe"
+        />
+<!-- android:actionLayout="@layout/activity_main"-->
     <item
         android:id="@+id/nav_chatbox"
         android:icon="@drawable/circle"

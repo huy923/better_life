@@ -42,6 +42,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.core.ktx)
     
+    // Play Services Location
+    implementation(libs.play.services.location)
+    
     // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)

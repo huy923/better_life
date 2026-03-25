@@ -63,12 +63,13 @@
                 app:layout_constraintVertical_bias="0.3">
 
                 <ProgressBar
+                    android:id="@+id/pb_home_steps"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:indeterminate="false"
                     android:max="10000"
-                    android:progress="7200"
+                    android:progress="0"
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <LinearLayout
@@ -79,16 +80,17 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:alpha="0.8"
                         android:src="@drawable/ic_steps"
                         app:tint="@color/white" />
 
                     <TextView
+                        android:id="@+id/tv_home_steps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="7,200"
+                        android:text="0"
                         android:textColor="@color/white"
                         android:textSize="36sp"
                         android:textStyle="bold" />
@@ -143,7 +145,7 @@
                         android:layout_marginTop="2dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="&quot;Tuyệt vời! Bạn đã đi được 72% mục tiêu...&quot;"
+                        android:text="&quot;Tuyệt vời! Bạn đang vận động rất tốt...&quot;"
                         android:textColor="@color/text_body"
                         android:textSize="14sp" />
                 </LinearLayout>
