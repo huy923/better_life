@@ -63,10 +63,41 @@ class SleepTrackingActivity : AppCompatActivity() {
     }
 
     private fun checkPermissions() {
+        val permissions = mutableListOf<String>()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 101)
+            permissions.add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+        permissions.add(Manifest.permission.RECORD_AUDIO)
+        
+        val toRequest = permissions.filter { 
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED 
+        }
+        
+        if (toRequest.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, toRequest.toTypedArray(), 101)
+        } else {
+            showSleepInfoDialog()
+        }
+    }
+
+    private fun showSleepInfoDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Hướng dẫn theo dõi giấc ngủ")
+            .setMessage("Chức năng này sẽ sử dụng Microphone để phân tích nhịp thở và tiếng động nhằm đánh giá chất lượng giấc ngủ.\n\nLưu ý: Để đạt hiệu quả tốt nhất và không làm gián đoạn, vui lòng CẮM SẠC điện thoại trước khi bắt đầu.")
+            .setPositiveButton("Tôi đã hiểu và đã cắm sạc") { _, _ ->
+                startSleepService()
             }
+            .setNegativeButton("Để sau", { _, _ -> finish() })
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun startSleepService() {
+        val intent = Intent(this, SleepTrackingService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
         }
     }
 

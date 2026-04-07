@@ -19,6 +19,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.sqrt
 
+import android.media.AudioFormat
+import android.media.AudioRecord
+import android.media.MediaRecorder
+import android.content.IntentFilter
+import android.content.BroadcastReceiver
+import kotlin.math.log10
+
 class SleepTrackingService : Service(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
@@ -36,6 +43,25 @@ class SleepTrackingService : Service(), SensorEventListener {
     
     private val scope = CoroutineScope(Dispatchers.IO)
 
+    // Audio tracking variables
+    private var audioRecord: AudioRecord? = null
+    private var isAudioRunning = false
+    private val bufferSize = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT)
+    private var lastAmplitude = 0.0
+
+    private val chargingReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val status = intent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+            val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
+            if (!isCharging) {
+                updateNotification("Đã dừng: Vui lòng cắm sạc để tiếp tục theo dõi giấc ngủ")
+                pauseTracking()
+            } else {
+                resumeTracking()
+            }
+        }
+    }
+
     companion object {
         const val CHANNEL_ID = "SleepTrackingChannel"
         const val NOTIFICATION_ID = 1001
@@ -50,6 +76,8 @@ class SleepTrackingService : Service(), SensorEventListener {
         
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BetterLife::SleepWakeLock")
+
+        registerReceiver(chargingReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -60,18 +88,21 @@ class SleepTrackingService : Service(), SensorEventListener {
         }
 
         createNotificationChannel()
-        startForeground(NOTIFICATION_ID, buildNotification("Đang phân tích giấc ngủ..."))
+        startForeground(NOTIFICATION_ID, buildNotification("Đang chờ cắm sạc để bắt đầu..."))
         
-        startTracking()
         return START_STICKY
     }
 
     private fun startTracking() {
+        if (isAudioRunning) return
+        
         wakeLock?.acquire(10 * 60 * 60 * 1000L) // 10 hours max
         
         scope.launch {
             val session = SleepSessionEntity(startTime = System.currentTimeMillis())
             currentSessionId = database.sleepTrackingDao().insertSession(session)
+            
+            startAudioRecording()
             
             samplingHandler.post(object : Runnable {
                 override fun run() {
@@ -86,11 +117,56 @@ class SleepTrackingService : Service(), SensorEventListener {
         }
     }
 
+    private fun startAudioRecording() {
+        try {
+            audioRecord = AudioRecord(MediaRecorder.AudioSource.MIC, 44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize)
+            audioRecord?.startRecording()
+            isAudioRunning = true
+            
+            scope.launch {
+                val buffer = ShortArray(bufferSize)
+                while (isAudioRunning) {
+                    val read = audioRecord?.read(buffer, 0, bufferSize) ?: 0
+                    if (read > 0) {
+                        var max = 0
+                        for (i in 0 until read) {
+                            if (Math.abs(buffer[i].toInt()) > max) max = Math.abs(buffer[i].toInt())
+                        }
+                        lastAmplitude = max.toDouble()
+                    }
+                }
+            }
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun pauseTracking() {
+        isAudioRunning = false
+        audioRecord?.stop()
+        audioRecord?.release()
+        audioRecord = null
+        sensorManager.unregisterListener(this)
+    }
+
+    private fun resumeTracking() {
+        val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
+            registerReceiver(null, ifilter)
+        }
+        val status = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+        if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
+            startTracking()
+            updateNotification("Đang phân tích giấc ngủ qua mic và cảm biến...")
+        }
+    }
+
     private fun recordData() {
-        if (currentSessionId == -1L) return
+        if (currentSessionId == -1L || !isAudioRunning) return
         
         val magnitude = sqrt(lastX * lastX + lastY * lastY + lastZ * lastZ)
-        val stage = classifyStage(magnitude)
+        // Combine movement and sound (dB) for stage classification
+        val db = if (lastAmplitude > 0) 20 * log10(lastAmplitude) else 0.0
+        val stage = classifyStage(magnitude, db)
         
         val data = SleepDataEntity(
             sessionId = currentSessionId,
@@ -100,6 +176,7 @@ class SleepTrackingService : Service(), SensorEventListener {
             movementZ = lastZ,
             magnitude = magnitude,
             stage = stage
+            // Note: Ideally SleepDataEntity should have a field for noise level
         )
         
         dataBuffer.add(data)
@@ -109,15 +186,15 @@ class SleepTrackingService : Service(), SensorEventListener {
             scope.launch { database.sleepTrackingDao().insertSleepDataBatch(batch) }
         }
         
-        updateNotification("Trạng thái: ${getStageName(stage)}")
+        updateNotification("Trạng thái: ${getStageName(stage)} (Tiếng ồn: ${db.toInt()}dB)")
     }
 
-    private fun classifyStage(mag: Float): Int {
+    private fun classifyStage(mag: Float, db: Double): Int {
         return when {
-            mag < 0.5f -> 2 // Deep
-            mag < 1.5f -> 1 // Light
-            mag < 3.0f -> 3 // REM
-            else -> 0 // Awake
+            mag > 3.0f || db > 60.0 -> 0 // Awake
+            mag < 0.5f && db < 30.0 -> 2 // Deep
+            mag < 1.5f && db < 45.0 -> 1 // Light
+            else -> 3 // REM
         }
     }
 

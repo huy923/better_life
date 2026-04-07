@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.better_life"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.better_life"
@@ -35,12 +35,20 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
     
     // Play Services Location
     implementation(libs.play.services.location)

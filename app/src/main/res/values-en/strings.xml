@@ -8,6 +8,7 @@
     <string name="nav_settings">Settings</string>
 
     <!-- Home -->
+    <string name="default_user">User</string>
     <string name="greeting">Good morning 👋</string>
     <string name="steps_unit">steps</string>
     <string name="ai_coach">AI Coach</string>

@@ -8,6 +8,7 @@
     <string name="nav_settings">Cài đặt</string>
 
     <!-- General -->
+    <string name="default_user">Người dùng</string>
     <string name="today" translatable="false">Hôm nay</string>
     <string name="yesterday" translatable="false">Hôm qua</string>
     <string name="back">Quay lại</string>
