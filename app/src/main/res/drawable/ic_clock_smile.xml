@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Background circle (clock face) -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10-4.48 10-10S17.52,2 12,2z" />
+
+    <!-- Clock hands -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="0.9"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M12,7 L12,12 L16,14" />
+
+    <!-- Eyes -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M9.2,10a0.6,0.6 0 1,0 0.001,0z M14.8,10a0.6,0.6 0 1,0 0.001,0z" />
+
+    <!-- Smile -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="0.9"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M8,15 C9.333,16.333 14.667,16.333 16,15" />
+
+</vector>
