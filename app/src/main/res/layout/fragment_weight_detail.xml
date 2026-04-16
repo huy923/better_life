@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5FAF9">
+
+    <!-- Header Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_circle_button"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/text_title" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cân nặng"
+                android:textColor="@color/text_title"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Theo dõi &amp; phân tích"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btn_add_weight"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_circle_button_teal"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="24dp">
+
+            <!-- Main Weight Card (Same as before) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_weight_card_gradient"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:id="@+id/lbl_current"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cân nặng hiện tại"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:id="@+id/weight_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lbl_current"
+                        android:layout_marginTop="4dp"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_current_weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="69.8"
+                            android:textColor="@color/white"
+                            android:textSize="48sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="kg"
+                            android:textColor="#CCFFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:alpha="0.2"
+                        android:src="@drawable/ic_scale"
+                        app:tint="@color/white" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/weight_container"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_diff_last"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_badge_white_alpha"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="4dp"
+                            android:text="↘ -0.4 kg lần trước"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_diff_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:background="@drawable/bg_badge_white_alpha"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="4dp"
+                            android:text="↘ -2.2 kg tổng"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Stats Mini Cards -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <include layout="@layout/item_weight_stat_mini" android:id="@+id/stat_avg" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginEnd="8dp" android:layout_weight="1" />
+                <include layout="@layout/item_weight_stat_mini" android:id="@+id/stat_min" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginHorizontal="4dp" android:layout_weight="1" />
+                <include layout="@layout/item_weight_stat_mini" android:id="@+id/stat_max" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <!-- Goal Card -->
+                <androidx.cardview.widget.CardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginEnd="8dp" android:layout_weight="1" app:cardCornerRadius="20dp" app:cardElevation="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mục tiêu" android:textColor="@color/text_secondary" android:textSize="13sp" />
+                            <ImageView
+                                android:id="@+id/btn_edit_goal"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentEnd="true"
+                                android:alpha="0.3"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_edit" />
+                        </RelativeLayout>
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:gravity="center" android:orientation="horizontal">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_target" app:tint="@color/weight_primary" />
+                            <TextView android:id="@+id/tv_goal_weight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="65" android:textColor="@color/text_title" android:textSize="22sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="kg" android:textColor="@color/text_secondary" android:textSize="12sp" />
+                        </LinearLayout>
+                        <ProgressBar android:id="@+id/progress_goal" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="12dp" android:progress="70" android:progressDrawable="@drawable/bg_progress_teal" />
+                        <TextView android:id="@+id/tv_goal_remaining" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="8dp" android:text="Còn 4.8 kg" android:textColor="@color/text_secondary" android:textSize="11sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <!-- BMI Mini Card -->
+                <androidx.cardview.widget.CardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:layout_weight="1" app:cardCornerRadius="20dp" app:cardElevation="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BMI" android:textColor="@color/text_secondary" android:textSize="13sp" />
+                            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:layout_alignParentEnd="true" android:alpha="0.3" android:src="@drawable/ic_ruler" />
+                        </RelativeLayout>
+                        <TextView android:id="@+id/tv_bmi_mini_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="8dp" android:text="24.2" android:textColor="@color/text_title" android:textSize="22sp" android:textStyle="bold" />
+                        <TextView android:id="@+id/tv_bmi_mini_status" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="Bình thường" android:textColor="@color/weight_primary" android:textSize="12sp" android:textStyle="bold" />
+                        <TextView android:id="@+id/tv_height_info" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="4dp" android:text="Chiều cao: 170 cm" android:textColor="@color/text_secondary" android:textSize="11sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <!-- Chart Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Biểu đồ xu hướng"
+                            android:textColor="@color/text_title"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/bg_tab_toggle_outline"
+                            android:padding="2dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingHorizontal="8dp" android:paddingVertical="4dp" android:text="1W" android:textColor="@color/text_secondary" android:textSize="10sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_tab_toggle_selected" android:paddingHorizontal="8dp" android:paddingVertical="4dp" android:text="1M" android:textColor="@color/white" android:textSize="10sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingHorizontal="8dp" android:paddingVertical="4dp" android:text="3M" android:textColor="@color/text_secondary" android:textSize="10sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingHorizontal="8dp" android:paddingVertical="4dp" android:text="ALL" android:textColor="@color/text_secondary" android:textSize="10sp" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/weight_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="16dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- BMI Detail Card (Corrected based on image) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:text="Chỉ số BMI của bạn"
+                        android:textColor="@color/text_title"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/ic_info" />
+
+                    <!-- BMI Scale and Indicators -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp">
+
+                        <View
+                            android:id="@+id/bmi_scale_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="14dp"
+                            android:background="@drawable/bg_bmi_scale_full"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <ImageView
+                            android:id="@+id/iv_bmi_indicator"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/bg_indicator_circle"
+                            app:layout_constraintTop_toTopOf="@id/bmi_scale_bg"
+                            app:layout_constraintBottom_toBottomOf="@id/bmi_scale_bg"
+                            app:layout_constraintStart_toStartOf="parent"/>
+
+                        <TextView
+                            android:id="@+id/tv_bmi_indicator_val"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:background="@drawable/bg_indicator_val_dark"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="2dp"
+                            android:text="24.2"
+                            android:textColor="@color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@id/iv_bmi_indicator"
+                            app:layout_constraintStart_toStartOf="@id/iv_bmi_indicator"
+                            app:layout_constraintEnd_toEndOf="@id/iv_bmi_indicator"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- BMI Ranges Legend -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_bmi_range" android:id="@+id/range_under" />
+                        <include layout="@layout/item_bmi_range" android:id="@+id/range_normal" />
+                        <include layout="@layout/item_bmi_range" android:id="@+id/range_over" />
+                        <include layout="@layout/item_bmi_range" android:id="@+id/range_obese" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- History Summary Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/ic_hist"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="@color/weight_primary" />
+
+                    <TextView
+                        android:id="@+id/lbl_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:layout_toEndOf="@id/ic_hist"
+                        android:text="Lịch sử ghi nhận"
+                        android:textColor="@color/text_title"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_history_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@id/lbl_history"
+                        android:background="@drawable/bg_tab_toggle_outline"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="2dp"
+                        android:text="8"
+                        android:textColor="@color/text_title"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:alpha="0.3"
+                        android:src="@drawable/ic_chevron_right"
+                        app:rotation="90" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

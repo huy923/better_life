@@ -76,6 +76,14 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+
+            // Observe Weight
+            launch {
+                viewModel.currentWeight.collectLatest { user ->
+                    binding.cardWeight.root.findViewById<android.widget.TextView>(R.id.tv_value).text = 
+                        user?.weight?.toString() ?: "0.0"
+                }
+            }
         }
     }
 
@@ -83,6 +91,40 @@ class HomeFragment : Fragment() {
         binding.actionMeal.root.setOnClickListener {
             // Navigation logic
         }
+        binding.actionWeight.root.setOnClickListener {
+            showUpdateWeightDialog()
+        }
+    }
+
+    private fun showUpdateWeightDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_update_weight, null)
+        val etWeight = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.et_weight)
+        val btnCancel = dialogView.findViewById<android.widget.Button>(R.id.btn_cancel)
+        val btnSave = dialogView.findViewById<android.widget.Button>(R.id.btn_save)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        btnCancel.setOnClickListener { dialog.dismiss() }
+        btnSave.setOnClickListener {
+            val weightStr = etWeight.text.toString()
+            if (weightStr.isNotEmpty()) {
+                val weight = weightStr.toDoubleOrNull()
+                if (weight != null) {
+                    viewModel.updateWeight(weight)
+                    dialog.dismiss()
+                } else {
+                    etWeight.error = "Vui lòng nhập số hợp lệ"
+                }
+            } else {
+                etWeight.error = "Không được để trống"
+            }
+        }
+
+        dialog.show()
     }
 
     override fun onDestroyView() {

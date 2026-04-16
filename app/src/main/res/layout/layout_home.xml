@@ -83,7 +83,6 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:alpha="0.8"
-                        android:src="@drawable/ic_steps"
                         app:tint="@color/white" />
 
                     <TextView
@@ -204,6 +203,15 @@
             <include
                 android:id="@+id/card_water"
                 layout="@layout/item_health_card_water"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp" />
+
+            <!-- Weight -->
+            <include
+                android:id="@+id/card_weight"
+                layout="@layout/item_health_card_weight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
