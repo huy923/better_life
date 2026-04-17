@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/warning_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <ImageView
+        android:id="@+id/warning_icon"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:contentDescription="Warning icon"
+        app:srcCompat="@drawable/ic_warning"
+        android:tint="#FFC107"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_margin="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="UseAppTint" />
+
+    <TextView
+        android:id="@+id/warning_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Health Warning"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/warning_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/warning_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=" cảnh báo sức khỏe: Sử dụng quá nhiều thuốc có thể gây hại cho gan và thận. Hãy tuân thủ hướng dẫn sử dụng và tham khảo ý kiến bác sĩ nếu cần thiết."
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/warning_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/warning_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tìm hiểu thêm"
+        app:layout_constraintTop_toBottomOf="@id/warning_message"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/warning_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="back to home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="632dp" />
+
+    <Button
+        android:id="@+id/warning_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="giải pháp đề xuất"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="630dp" />
+
+    <ImageView
+        android:id="@+id/smoke_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:contentDescription="Smoke image"
+        app:srcCompat="@drawable/ic_smoke"
+        android:alpha="0.9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="UseAppTint" />
+
+    <TextView
+        android:id="@+id/warning_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Health Warning"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/smoke_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="DuplicateIds" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -316,4 +316,5 @@ class MainActivity : AppCompatActivity() {
     private fun saveMealToDb(n: String, c: Int, p: String) {
         lifecycleScope.launch { database.mealDao().insert(MealRecord(name = n, calories = c, timestamp = System.currentTimeMillis(), mealType = "Auto", imageUri = p)) }
     }
+    private fun
 }
