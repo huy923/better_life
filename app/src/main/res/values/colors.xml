@@ -3,6 +3,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
 
+    <!-- Teal Theme for Weight (Matching the image) -->
+    <color name="weight_primary">#2DD1AC</color>
+    <color name="weight_primary_variant">#19B692</color>
+    <color name="weight_bg_light">#F5FAF9</color>
+    <color name="weight_card_gradient_start">#36D9B6</color>
+    <color name="weight_card_gradient_end">#1CB697</color>
+    <color name="weight_badge_bg">#33FFFFFF</color>
+
     <!-- Warm Theme Palette -->
     <color name="bg_main">#FFFBF5</color> <!-- Màu kem ấm -->
     <color name="primary_teal">#FF8A65</color> <!-- Cam san hô ấm -->

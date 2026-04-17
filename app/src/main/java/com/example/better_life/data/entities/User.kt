@@ -10,6 +10,7 @@ data class User(
     val age: Int,
     val height: Int,
     val weight: Double,
+    val targetWeight: Double? = 65.0,
     val targetSteps: Int = 10000,
     val targetCalories: Int = 2500,
     val targetWater: Double = 2.5

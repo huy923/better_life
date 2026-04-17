@@ -16,9 +16,10 @@ import com.example.better_life.data.entities.*
         Goal::class,
         SleepRecord::class,
         SleepSessionEntity::class,
-        SleepDataEntity::class
+        SleepDataEntity::class,
+        WeightRecord::class
     ],
-    version = 3,
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -29,6 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun goalDao(): GoalDao
     abstract fun sleepDao(): SleepDao
     abstract fun sleepTrackingDao(): SleepTrackingDao
+    abstract fun weightDao(): WeightDao
 
     companion object {
         @Volatile

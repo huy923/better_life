@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             val layoutId = when (item.itemId) {
                 R.id.nav_home -> R.layout.layout_home
-                R.id.nav_health -> R.layout.layout_heart_rate_detail
+                R.id.nav_health -> R.layout.fragment_weight_detail
                 R.id.nav_chatbox -> R.layout.fragment_chat_ai
                 R.id.nav_goals -> R.layout.fragment_goals
                 R.id.nav_settings -> R.layout.fragment_settings
@@ -237,16 +237,20 @@ class MainActivity : AppCompatActivity() {
                     } } }
 
                     launch {
-                        stepCounterManager.steps.collectLatest { steps ->
-                            val tvSteps = view.findViewById<TextView>(R.id.tv_home_steps)
-                            val pbSteps = view.findViewById<ProgressBar>(R.id.pb_home_steps)
-                            tvSteps?.text = String.format(Locale.getDefault(), "%,d", steps)
-                            pbSteps?.progress = steps
+                        database.weightDao().getLatestWeight().collectLatest { record ->
+                            val cardWeight = view.findViewById<View>(R.id.card_weight)
+                            cardWeight?.findViewById<TextView>(R.id.tv_value)?.text = String.format(Locale.getDefault(), "%.1f", record?.weight ?: 0.0)
+                            cardWeight?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.fragment_weight_detail) } }
                         }
                     }
 
                     view.findViewById<View>(R.id.action_meal)?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.layout_calories_detail) } }
                     view.findViewById<View>(R.id.action_run)?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.layout_running_detail) } }
+                    view.findViewById<View>(R.id.action_weight)?.setOnClickListener { v -> Animation.applyClick(v) { showUpdateWeightDialog() } }
+                }
+
+                R.layout.fragment_weight_detail -> {
+                    setupWeightDetailUI(view)
                 }
 
                 R.layout.layout_heart_rate_detail -> heartRateManager.setupHeartRateUI(view)
@@ -283,6 +287,7 @@ class MainActivity : AppCompatActivity() {
     private fun syncBottomNav(layoutId: Int) {
         val itemId = when(layoutId) {
             R.layout.layout_home -> R.id.nav_home
+            R.layout.fragment_weight_detail -> R.id.nav_health
             R.layout.layout_heart_rate_detail -> R.id.nav_health
             R.id.nav_chatbox -> R.id.nav_chatbox
             R.id.nav_goals -> R.id.nav_goals
@@ -304,6 +309,130 @@ class MainActivity : AppCompatActivity() {
             val photoURI = FileProvider.getUriForFile(this, "${packageName}.fileprovider", photoFile!!)
             takePhotoLauncher.launch(photoURI)
         } catch (e: Exception) { Toast.makeText(this, "Camera error: ${e.message}", Toast.LENGTH_SHORT).show() }
+    }
+
+    private fun setupWeightDetailUI(view: View) {
+        lifecycleScope.launch {
+            launch {
+                database.weightDao().getLatestWeight().collectLatest { record ->
+                    record?.let {
+                        view.findViewById<TextView>(R.id.tv_current_weight)?.text = String.format(Locale.getDefault(), "%.1f", it.weight)
+                        updateWeightDetailUI(view, it.weight)
+                    }
+                }
+            }
+            
+            launch {
+                database.weightDao().getAllWeights().collectLatest { weights ->
+                    val container = view.findViewById<LinearLayout>(R.id.ll_weight_history_container) ?: return@collectLatest
+                    container.removeAllViews()
+                    weights.take(10).forEachIndexed { index, record ->
+                        val item = LayoutInflater.from(this@MainActivity).inflate(R.layout.item_weight_history, container, false)
+                        item.findViewById<TextView>(R.id.tv_weight_value).text = String.format(Locale.getDefault(), "%.1f kg", record.weight)
+                        val date = java.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(java.util.Date(record.timestamp))
+                        item.findViewById<TextView>(R.id.tv_date).text = date
+                        container.addView(item)
+                        Animation.animateItemEntry(item, index)
+                    }
+                    if (weights.isNotEmpty()) {
+                        updateWeightChart(view, weights)
+                    }
+                }
+            }
+        }
+        
+        view.findViewById<View>(R.id.btn_add_weight)?.setOnClickListener { v -> 
+            Animation.applyClick(v) { showUpdateWeightDialog() } 
+        }
+    }
+
+    private fun updateWeightDetailUI(view: View, weight: Double) {
+        lifecycleScope.launch {
+            val user = database.userDao().getUser().first()
+            if (user != null && user.height > 0) {
+                val heightInMeters = user.height / 100.0
+                val bmi = weight / (heightInMeters * heightInMeters)
+                view.findViewById<TextView>(R.id.tv_bmi_value)?.text = String.format(Locale.getDefault(), "%.1f", bmi)
+                
+                val statusText = when {
+                    bmi < 18.5 -> "Thiếu cân"
+                    bmi < 25 -> "Bình thường"
+                    bmi < 30 -> "Thừa cân"
+                    else -> "Béo phì"
+                }
+                view.findViewById<TextView>(R.id.tv_bmi_status)?.text = statusText
+            }
+        }
+    }
+
+    private fun updateWeightChart(view: View, weights: List<com.example.better_life.data.entities.WeightRecord>) {
+        val chart = view.findViewById<com.github.mikephil.charting.charts.LineChart>(R.id.weight_chart) ?: return
+        
+        val entries = weights.reversed().mapIndexed { index, record ->
+            com.github.mikephil.charting.data.Entry(index.toFloat(), record.weight.toFloat())
+        }
+
+        val dataSet = com.github.mikephil.charting.data.LineDataSet(entries, "Cân nặng").apply {
+            color = ContextCompat.getColor(this@MainActivity, R.color.primary_teal)
+            setCircleColor(ContextCompat.getColor(this@MainActivity, R.color.primary_teal))
+            lineWidth = 3f
+            circleRadius = 5f
+            setDrawCircleHole(false)
+            valueTextSize = 10f
+            mode = com.github.mikephil.charting.data.LineDataSet.Mode.CUBIC_BEZIER
+            setDrawFilled(true)
+            fillColor = ContextCompat.getColor(this@MainActivity, R.color.primary_teal)
+            fillAlpha = 50
+        }
+
+        chart.apply {
+            data = com.github.mikephil.charting.data.LineData(dataSet)
+            description.isEnabled = false
+            legend.isEnabled = false
+            xAxis.isEnabled = false
+            axisRight.isEnabled = false
+            axisLeft.apply {
+                textColor = ContextCompat.getColor(this@MainActivity, R.color.text_secondary)
+                gridColor = Color.parseColor("#EEEEEE")
+            }
+            animateX(1000)
+            invalidate()
+        }
+    }
+
+    private fun showUpdateWeightDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_update_weight, null)
+        val etWeight = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.et_weight)
+        val btnCancel = dialogView.findViewById<android.widget.Button>(R.id.btn_cancel)
+        val btnSave = dialogView.findViewById<android.widget.Button>(R.id.btn_save)
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        btnCancel.setOnClickListener { dialog.dismiss() }
+        btnSave.setOnClickListener {
+            val weightStr = etWeight.text.toString()
+            if (weightStr.isNotEmpty()) {
+                val weight = weightStr.toDoubleOrNull()
+                if (weight != null) {
+                    lifecycleScope.launch {
+                        database.weightDao().insertWeight(com.example.better_life.data.entities.WeightRecord(weight = weight))
+                        val user = database.userDao().getUser().first()
+                        user?.let { database.userDao().update(it.copy(weight = weight)) }
+                    }
+                    dialog.dismiss()
+                } else {
+                    etWeight.error = "Vui lòng nhập số hợp lệ"
+                }
+            } else {
+                etWeight.error = "Không được để trống"
+            }
+        }
+
+        dialog.show()
     }
 
     private fun processMealImage(file: File) {
