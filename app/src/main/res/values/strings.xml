@@ -9,16 +9,25 @@
 
     <!-- General -->
     <string name="default_user">Người dùng</string>
-    <string name="today" translatable="false">Hôm nay</string>
-    <string name="yesterday" translatable="false">Hôm qua</string>
+    <string name="today">Hôm nay</string>
+    <string name="yesterday">Hôm qua</string>
     <string name="back">Quay lại</string>
     <string name="completed">Hoàn thành</string>
 
     <!-- Home -->
     <string name="greeting">Chào buổi sáng 👋</string>
     <string name="steps_unit">bước</string>
-    <string name="ai_coach">AI Coach</string>
-    <string name="ai_coach_msg">"Tuyệt vời! Bạn đã đi được 72% mục tiêu..."</string>
+    <string name="ai_coach">✨ AI Coach</string>
+    <string name="ai_coach_subtitle">Luôn sẵn sàng hỗ trợ bạn</string>
+    <string name="ai_coach_msg">"Tuyệt vời! Bạn đang vận động rất tốt..."</string>
+    <string name="ai_msg_1">Chào bạn! Tôi là AI Coach của bạn 🤖 Tôi thấy bạn đã đi được 7,200 bước hôm nay, chỉ còn 2,800 bước nữa thôi! Bạn có muốn tôi gợi ý cách hoàn thành mục tiêu không?</string>
+    <string name="user_msg_1">Mình đang mất động lực lắm, mệt quá không muốn tập nữa 😫</string>
+    <string name="ai_msg_2">"Tôi hiểu cảm giác đó! Nhưng hãy nhìn lại nhé - bạn đã duy trì tập luyện được 15 ngày liên tục rồi! 🔥 Đó là một thành tích tuyệt vời!\n\nHãy thử cách này: Đi bộ nhẹ 10 phút thôi. Không cần chạy, chỉ cần bước đi. Thường thì khi bắt đầu, bạn sẽ muốn tiếp tục! 💪\n\nNhớ rằng: Mỗi bước đi hôm nay là một phần thưởng cho sức khỏe ngày mai! 🌟"</string>
+    <string name="quick_reply_meal">Tư vấn bữa ăn hôm nay</string>
+    <string name="quick_reply_workout">Lịch tập phù hợp cho tôi</string>
+    <string name="quick_reply_more">Tôi muốn thêm...</string>
+    <string name="chat_hint">Hỏi AI Coach...</string>
+    <string name="steps_goal_format">/ 10,000 bước</string>
     <string name="health_index">Chỉ số sức khỏe</string>
     <string name="heart_rate">Nhịp tim</string>
     <string name="calories">Calories</string>
@@ -100,11 +109,73 @@
     <string name="lang_vi">🇻🇳 Tiếng Việt</string>
     <string name="lang_en">🇺🇸 English</string>
 
-    <!-- Running -->
+    <!-- Weight Detail -->
+    <string name="weight_tracking">Theo dõi cân nặng</string>
+    <string name="tracking_analysis">Theo dõi &amp; phân tích</string>
+    <string name="current_weight">Cân nặng hiện tại</string>
+    <string name="kg">kg</string>
+    <string name="diff_last_format">↘ %1$.1f kg lần trước</string>
+    <string name="diff_total_format">↘ %1$.1f kg tổng</string>
+    <string name="stat_avg_week">TB tuần</string>
+    <string name="stat_min">Thấp nhất</string>
+    <string name="stat_max">Cao nhất</string>
+    <string name="goal">Mục tiêu</string>
+    <string name="remaining_format">Còn %1$.1f kg</string>
+    <string name="goal_reached">Đã đạt mục tiêu!</string>
+    <string name="no_goal">Chưa đặt mục tiêu</string>
+    <string name="height_format">Chiều cao: %1$d cm</string>
+    <string name="bmi_status_under">Thiếu cân</string>
+    <string name="bmi_status_normal">Bình thường</string>
+    <string name="bmi_status_over">Thừa cân</string>
+    <string name="bmi_status_obese">Béo phì</string>
+    <string name="history_records">Bản ghi lịch sử</string>
+    <string name="view_all">Xem tất cả</string>
+
+    <!-- Dialogs -->
+    <string name="add_weight_title">Ghi nhận cân nặng</string>
+    <string name="add_weight_desc">Nhập cân nặng hiện tại của bạn</string>
+    <string name="save_weight">Lưu cân nặng</string>
+    <string name="update_goal_title">Mục tiêu cân nặng</string>
+    <string name="update_goal_desc">Đặt cân nặng mục tiêu bạn muốn đạt được</string>
+    <string name="update">Cập nhật</string>
+    <string name="invalid_number">Vui lòng nhập số hợp lệ</string>
+    <string name="empty_field">Không được để trống</string>
+    <string name="ai_result_title">Kết quả AI</string>
+    <string name="ai_detect_format">Phát hiện: %1$s\nCalories: %2$d kcal\n\nBạn có muốn lưu không?</string>
+    <string name="save">Lưu</string>
+    <string name="cancel">Hủy</string>
+    <string name="camera_permission_denied">Cần quyền Camera để thực hiện chức năng này</string>
+    <string name="camera_error">Lỗi Camera: %1$s</string>
     <string name="running">Chạy bộ</string>
     <string name="walking">Đi bộ</string>
     <string name="time">Thời gian</string>
-    <string name="distance">Khoảng cách</string>
+    <string name="distance">Quãng đường</string>
     <string name="activity_history">Lịch sử hoạt động</string>
-    <string name="steps">Bước</string>
+    <string name="steps">Bước chân</string>
+    <string name="calories_target_format">/ 2,500 kcal</string>
+    <string name="meal_photos_title">📸 Ảnh bữa ăn</string>
+    <string name="save_duration_info">🕒 Lưu 3 ngày</string>
+    <string name="ready_to_measure_hr">Sẵn sàng đo nhịp tim</string>
+    <string name="start_measure">BẮT ĐẦU ĐO</string>
+    <string name="stop_measure">DỪNG ĐO</string>
+    <string name="recent_hr_history">Lịch sử đo gần đây</string>
+    <string name="weight_chart_label">Cân nặng</string>
+    <string name="running_notif_settings">Cài đặt thông báo</string>
+    <string name="running_notif_desc">Tùy chỉnh thông báo khi chạy bộ</string>
+    <string name="enable_notif">Bật thông báo</string>
+    <string name="every_step">Mỗi bước chân</string>
+    <string name="every_minute">Mỗi phút</string>
+    <string name="every_kcal">Mỗi kcal</string>
+    <string name="off">Tắt</string>
+    <string name="steps_format">%1$d bước</string>
+    <string name="minutes_format">%1$d phút</string>
+    <string name="last_night">Đêm qua</string>
+    <string name="sleep_score">Điểm ngủ</string>
+    <string name="awake_duration_format">%1$d phút</string>
+    <string name="sleep_this_week">Giấc ngủ tuần này</string>
+    <string name="weekly_avg_format">📈 TB: %1$.1fh</string>
+    <string name="weight_example">Ví dụ: 65.5</string>
+    <string name="kcal_format">%1$d kcal</string>
+    <string name="stop_folow">Dừng theo dõi</string>
+    <string name="save_goal">Lưu mục tiêu</string>
 </resources>

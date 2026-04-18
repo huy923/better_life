@@ -82,8 +82,8 @@ class RunningManager(
 
         scope.launch {
             val record = RunningRecord(
-                date = "Hôm nay",
-                activityType = "Chạy bộ",
+                date = context.getString(R.string.today),
+                activityType = context.getString(R.string.running),
                 duration = formatDuration(currentDuration),
                 steps = stepCounterManager.steps.value,
                 calories = (currentDistance * 0.06).toInt(),

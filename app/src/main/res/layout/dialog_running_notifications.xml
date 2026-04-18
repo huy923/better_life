@@ -15,7 +15,7 @@
             android:id="@+id/tv_dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cài đặt thông báo"
+            android:text="@string/running_notif_settings"
             android:textColor="@color/text_title"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_dialog_title"
             android:layout_marginTop="2dp"
-            android:text="Tùy chỉnh thông báo khi chạy bộ"
+            android:text="@string/running_notif_desc"
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_weight="1"
-            android:text="Bật thông báo"
+            android:text="@string/enable_notif"
             android:textColor="@color/text_title"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_person_walking" app:tint="@color/running_blue" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Mỗi bước chân" android:textColor="@color/text_title" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="@string/every_step" android:textColor="@color/text_title" android:textStyle="bold" />
             </LinearLayout>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="500 bước" android:textColor="@color/running_green" android:textStyle="bold" />
         </RelativeLayout>
@@ -102,7 +102,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tắt" android:textSize="10sp" android:textColor="@color/text_secondary" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/off" android:textSize="10sp" android:textColor="@color/text_secondary" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="5000" android:textSize="10sp" android:textColor="@color/text_secondary" />
         </RelativeLayout>
     </LinearLayout>
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_clock" app:tint="@color/text_secondary" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Mỗi phút" android:textColor="@color/text_title" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="@string/every_minute" android:textColor="@color/text_title" android:textStyle="bold" />
             </LinearLayout>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="5 phút" android:textColor="@color/running_green" android:textStyle="bold" />
         </RelativeLayout>
@@ -139,7 +139,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tắt" android:textSize="10sp" android:textColor="@color/text_secondary" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/off" android:textSize="10sp" android:textColor="@color/text_secondary" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="60 phút" android:textSize="10sp" android:textColor="@color/text_secondary" />
         </RelativeLayout>
     </LinearLayout>
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
                 <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_fire" app:tint="#FFA726" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="Mỗi kcal" android:textColor="@color/text_title" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="@string/every_kcal" android:textColor="@color/text_title" android:textStyle="bold" />
             </LinearLayout>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="50 kcal" android:textColor="@color/running_green" android:textStyle="bold" />
         </RelativeLayout>
@@ -176,7 +176,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tắt" android:textSize="10sp" android:textColor="@color/text_secondary" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/off" android:textSize="10sp" android:textColor="@color/text_secondary" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="500 kcal" android:textSize="10sp" android:textColor="@color/text_secondary" />
         </RelativeLayout>
     </LinearLayout>

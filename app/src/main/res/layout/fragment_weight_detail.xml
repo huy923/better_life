@@ -38,7 +38,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cân nặng"
+                android:text="@string/weight"
                 android:textColor="@color/text_title"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Theo dõi &amp; phân tích"
+                android:text="@string/tracking_analysis"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -96,7 +96,7 @@
                         android:id="@+id/lbl_current"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cân nặng hiện tại"
+                        android:text="@string/current_weight"
                         android:textColor="#CCFFFFFF"
                         android:textSize="14sp" />
 
@@ -113,7 +113,7 @@
                             android:id="@+id/tv_current_weight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="69.8"
+                            tools:text="69.8"
                             android:textColor="@color/white"
                             android:textSize="48sp"
                             android:textStyle="bold" />
@@ -123,7 +123,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
                             android:layout_marginBottom="8dp"
-                            android:text="kg"
+                            android:text="@string/kg"
                             android:textColor="#CCFFFFFF"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -152,7 +152,7 @@
                             android:background="@drawable/bg_badge_white_alpha"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
-                            android:text="↘ -0.4 kg lần trước"
+                            tools:text="↘ -0.4 kg lần trước"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -164,7 +164,7 @@
                             android:background="@drawable/bg_badge_white_alpha"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
-                            android:text="↘ -2.2 kg tổng"
+                            tools:text="↘ -2.2 kg tổng"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -193,7 +193,7 @@
                 <androidx.cardview.widget.CardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginEnd="8dp" android:layout_weight="1" app:cardCornerRadius="20dp" app:cardElevation="0dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mục tiêu" android:textColor="@color/text_secondary" android:textSize="13sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/goal" android:textColor="@color/text_secondary" android:textSize="13sp" />
                             <ImageView
                                 android:id="@+id/btn_edit_goal"
                                 android:layout_width="24dp"
@@ -205,11 +205,11 @@
                         </RelativeLayout>
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:gravity="center" android:orientation="horizontal">
                             <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_target" app:tint="@color/weight_primary" />
-                            <TextView android:id="@+id/tv_goal_weight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="65" android:textColor="@color/text_title" android:textSize="22sp" android:textStyle="bold" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="kg" android:textColor="@color/text_secondary" android:textSize="12sp" />
+                            <TextView android:id="@+id/tv_goal_weight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" tools:text="65" android:textColor="@color/text_title" android:textSize="22sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="@string/kg" android:textColor="@color/text_secondary" android:textSize="12sp" />
                         </LinearLayout>
                         <ProgressBar android:id="@+id/progress_goal" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="12dp" android:progress="70" android:progressDrawable="@drawable/bg_progress_teal" />
-                        <TextView android:id="@+id/tv_goal_remaining" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="8dp" android:text="Còn 4.8 kg" android:textColor="@color/text_secondary" android:textSize="11sp" />
+                        <TextView android:id="@+id/tv_goal_remaining" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="8dp" tools:text="Còn 4.8 kg" android:textColor="@color/text_secondary" android:textSize="11sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <!-- BMI Mini Card -->
@@ -219,9 +219,25 @@
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BMI" android:textColor="@color/text_secondary" android:textSize="13sp" />
                             <ImageView android:layout_width="16dp" android:layout_height="16dp" android:layout_alignParentEnd="true" android:alpha="0.3" android:src="@drawable/ic_ruler" />
                         </RelativeLayout>
-                        <TextView android:id="@+id/tv_bmi_mini_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="8dp" android:text="24.2" android:textColor="@color/text_title" android:textSize="22sp" android:textStyle="bold" />
-                        <TextView android:id="@+id/tv_bmi_mini_status" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="Bình thường" android:textColor="@color/weight_primary" android:textSize="12sp" android:textStyle="bold" />
-                        <TextView android:id="@+id/tv_height_info" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="4dp" android:text="Chiều cao: 170 cm" android:textColor="@color/text_secondary" android:textSize="11sp" />
+                        <TextView android:id="@+id/tv_bmi_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="8dp" tools:text="24.2" android:textColor="@color/text_title" android:textSize="22sp" android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tv_bmi_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/bmi_status_normal"
+                            android:textColor="@color/weight_primary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tv_height_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/height_format"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -247,7 +263,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Biểu đồ xu hướng"
+                            android:text="@string/weight_tracking"
                             android:textColor="@color/text_title"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -292,7 +308,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="8dp"
-                        android:text="Chỉ số BMI của bạn"
+                        android:text="@string/health_index"
                         android:textColor="@color/text_title"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -329,7 +345,7 @@
                             android:background="@drawable/bg_indicator_val_dark"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="2dp"
-                            android:text="24.2"
+                            tools:text="24.2"
                             android:textColor="@color/white"
                             android:textSize="11sp"
                             android:textStyle="bold"
@@ -383,7 +399,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="12dp"
                         android:layout_toEndOf="@id/ic_hist"
-                        android:text="Lịch sử ghi nhận"
+                        android:text="@string/history_records"
                         android:textColor="@color/text_title"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -398,7 +414,7 @@
                         android:background="@drawable/bg_tab_toggle_outline"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="2dp"
-                        android:text="8"
+                        tools:text="8"
                         android:textColor="@color/text_title"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -410,8 +426,16 @@
                         android:layout_centerVertical="true"
                         android:alpha="0.3"
                         android:src="@drawable/ic_chevron_right"
-                        app:rotation="90" />
+                        android:rotation="90" />
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_weight_history_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingBottom="16dp" />
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>

@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Nhịp tim"
+                android:text="@string/heart_rate"
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp" />
         </LinearLayout>

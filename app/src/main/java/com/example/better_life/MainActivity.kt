@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         if (isGranted) openCamera()
-        else Toast.makeText(this, "Cần quyền Camera để thực hiện chức năng này", Toast.LENGTH_SHORT).show()
+        else Toast.makeText(this, getString(R.string.camera_permission_denied), Toast.LENGTH_SHORT).show()
     }
 
     private val takePhotoLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
@@ -308,7 +308,7 @@ class MainActivity : AppCompatActivity() {
             photoFile = File.createTempFile("MEAL_${System.currentTimeMillis()}_", ".jpg", storageDir)
             val photoURI = FileProvider.getUriForFile(this, "${packageName}.fileprovider", photoFile!!)
             takePhotoLauncher.launch(photoURI)
-        } catch (e: Exception) { Toast.makeText(this, "Camera error: ${e.message}", Toast.LENGTH_SHORT).show() }
+        } catch (e: Exception) { Toast.makeText(this, getString(R.string.camera_error, e.message), Toast.LENGTH_SHORT).show() }
     }
 
     private fun setupWeightDetailUI(view: View) {
@@ -355,10 +355,10 @@ class MainActivity : AppCompatActivity() {
                 view.findViewById<TextView>(R.id.tv_bmi_value)?.text = String.format(Locale.getDefault(), "%.1f", bmi)
                 
                 val statusText = when {
-                    bmi < 18.5 -> "Thiếu cân"
-                    bmi < 25 -> "Bình thường"
-                    bmi < 30 -> "Thừa cân"
-                    else -> "Béo phì"
+                    bmi < 18.5 -> getString(R.string.bmi_status_under)
+                    bmi < 25 -> getString(R.string.bmi_status_normal)
+                    bmi < 30 -> getString(R.string.bmi_status_over)
+                    else -> getString(R.string.bmi_status_obese)
                 }
                 view.findViewById<TextView>(R.id.tv_bmi_status)?.text = statusText
             }
@@ -372,7 +372,7 @@ class MainActivity : AppCompatActivity() {
             com.github.mikephil.charting.data.Entry(index.toFloat(), record.weight.toFloat())
         }
 
-        val dataSet = com.github.mikephil.charting.data.LineDataSet(entries, "Cân nặng").apply {
+        val dataSet = com.github.mikephil.charting.data.LineDataSet(entries, getString(R.string.weight_chart_label)).apply {
             color = ContextCompat.getColor(this@MainActivity, R.color.primary_teal)
             setCircleColor(ContextCompat.getColor(this@MainActivity, R.color.primary_teal))
             lineWidth = 3f
@@ -425,10 +425,10 @@ class MainActivity : AppCompatActivity() {
                     }
                     dialog.dismiss()
                 } else {
-                    etWeight.error = "Vui lòng nhập số hợp lệ"
+                    etWeight.error = getString(R.string.invalid_number)
                 }
             } else {
-                etWeight.error = "Không được để trống"
+                etWeight.error = getString(R.string.empty_field)
             }
         }
 
@@ -437,9 +437,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun processMealImage(file: File) {
         val food = listOf("Phở Bò" to 450, "Cơm Tấm" to 600, "Bánh Mì" to 320, "Salad Ức Gà" to 280).random()
-        AlertDialog.Builder(this, R.style.CustomDialogTheme).setTitle("Kết quả AI").setMessage("Phát hiện: ${food.first}\nCalories: ${food.second} kcal\n\nBạn có muốn lưu không?")
-            .setPositiveButton("Lưu") { _, _ -> saveMealToDb(food.first, food.second, file.absolutePath) }
-            .setNegativeButton("Hủy", null).show()
+        AlertDialog.Builder(this, R.style.CustomDialogTheme)
+            .setTitle(getString(R.string.ai_result_title))
+            .setMessage(getString(R.string.ai_detect_format, food.first, food.second))
+            .setPositiveButton(getString(R.string.save)) { _, _ -> saveMealToDb(food.first, food.second, file.absolutePath) }
+            .setNegativeButton(getString(R.string.cancel), null).show()
     }
 
     private fun saveMealToDb(n: String, c: Int, p: String) {

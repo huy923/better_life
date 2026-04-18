@@ -9,10 +9,43 @@
 
     <!-- Home -->
     <string name="default_user">User</string>
+    <string name="completed">Completed</string>
     <string name="greeting">Good morning 👋</string>
     <string name="steps_unit">steps</string>
-    <string name="ai_coach">AI Coach</string>
-    <string name="ai_coach_msg">"Great! You have reached 72% of your goal..."</string>
+    <string name="ai_coach">✨ AI Coach</string>
+    <string name="ai_coach_subtitle">Always here to support you</string>
+    <string name="ai_coach_msg">"Great! You are moving very well..."</string>
+    <string name="ai_msg_1">Hello! I am your AI Coach 🤖 I see you have reached 7,200 steps today, only 2,800 steps left! Would you like me to suggest ways to complete your goal?</string>
+    <string name="user_msg_1">I\'m losing motivation, so tired and don\'t want to exercise anymore 😫</string>
+    <string name="ai_msg_2">"I understand that feeling! But look back - you have maintained your workout for 15 consecutive days! 🔥 That\'s an amazing achievement!\n\nTry this: Just a light 10-minute walk. No need to run, just walk. Usually when you start, you\'ll want to continue! 💪\n\nRemember: Every step today is a reward for your health tomorrow! 🌟"</string>
+    <string name="quick_reply_meal">Meal advice for today</string>
+    <string name="quick_reply_workout">Suitable workout for me</string>
+    <string name="quick_reply_more">I want to add...</string>
+    <string name="chat_hint">Ask AI Coach...</string>
+    <string name="steps_goal_format">/ 10,000 steps</string>
+
+    <!-- Goals -->
+    <string name="goals_discipline">Goals &amp; Discipline</string>
+    <string name="completed_today">Completed today</string>
+    <string name="keep_it_up">Keep it up! You\'re almost there! 🔥</string>
+    <string name="daily_walk">Daily walk</string>
+    <string name="drink_enough_water">Drink enough water</string>
+    <string name="enough_sleep">Get enough sleep</string>
+    <string name="no_snack_after_8">No snacking after 8 PM</string>
+    <string name="exercise_30_min">Exercise for 30 min</string>
+    <string name="add_new_goal">+ Add new goal</string>
+    <string name="streak_days">%1$d days</string>
+
+    <!-- Sleep Detail -->
+    <string name="sleep_hours">7h 30m</string>
+    <string name="sleep_start">Bedtime</string>
+    <string name="wake_up">Wake up</string>
+    <string name="deep_sleep">Deep Sleep</string>
+    <string name="sleep_stages">Sleep Stages</string>
+    <string name="awake">Awake</string>
+    <string name="light_sleep">Light Sleep</string>
+    <string name="rem">REM</string>
+
     <string name="health_index">Health Index</string>
     <string name="heart_rate">Heart Rate</string>
     <string name="calories">Calories</string>
@@ -43,4 +76,98 @@
     <string name="logout">Logout</string>
     <string name="lang_vi">🇻🇳 Vietnamese</string>
     <string name="lang_en">🇺🇸 English</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="back">Back</string>
+    <string name="bpm">bpm</string>
+    <string name="last_measured">Last measured</string>
+    <string name="low">Low</string>
+    <string name="average">Average</string>
+    <string name="high">High</string>
+    <string name="running">Running</string>
+    <string name="walking">Walking</string>
+    <string name="time">Time</string>
+    <string name="distance">Distance</string>
+    <string name="activity_history">Activity History</string>
+    <string name="steps">Steps</string>
+
+    <!-- Weight Detail -->
+    <string name="weight_tracking">Weight Tracking</string>
+    <string name="tracking_analysis">Tracking &amp; analysis</string>
+    <string name="current_weight">Current Weight</string>
+    <string name="kg">kg</string>
+    <string name="diff_last_format">↘ %1$.1f kg last time</string>
+    <string name="diff_total_format">↘ %1$.1f kg total</string>
+    <string name="stat_avg_week">Weekly Avg</string>
+    <string name="stat_min">Min</string>
+    <string name="stat_max">Max</string>
+    <string name="goal">Goal</string>
+    <string name="remaining_format">%1$.1f kg remaining</string>
+    <string name="goal_reached">Goal reached!</string>
+    <string name="no_goal">No goal set</string>
+    <string name="height_format">Height: %1$d cm</string>
+    <string name="bmi_status_under">Underweight</string>
+    <string name="bmi_status_normal">Normal</string>
+    <string name="bmi_status_over">Overweight</string>
+    <string name="bmi_status_obese">Obese</string>
+    <string name="history_records">History Records</string>
+    <string name="view_all">View all</string>
+
+    <!-- Dialogs -->
+    <string name="add_weight_title">Add Weight</string>
+    <string name="add_weight_desc">Enter your current weight</string>
+    <string name="save_weight">Save weight</string>
+    <string name="update_goal_title">Weight Goal</string>
+    <string name="update_goal_desc">Set the target weight you want to achieve</string>
+    <string name="update">Update</string>
+    <string name="invalid_number">Please enter a valid number</string>
+    <string name="empty_field">Cannot be empty</string>
+    <string name="ai_result_title">AI Result</string>
+    <string name="ai_detect_format">Detected: %1$s\nCalories: %2$d kcal\n\nDo you want to save it?</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="camera_permission_denied">Camera permission is required for this feature</string>
+    <string name="camera_error">Camera error: %1$s</string>
+    <string name="calories_target_format">/ 2,500 kcal</string>
+    <string name="meal_photos_title">📸 Meal Photos</string>
+    <string name="save_duration_info">🕒 Kept for 3 days</string>
+    <string name="ready_to_measure_hr">Ready to measure heart rate</string>
+    <string name="start_measure">START MEASURING</string>
+    <string name="stop_measure">STOP MEASURING</string>
+    <string name="recent_hr_history">Recent Measurement History</string>
+    <string name="weight_chart_label">Weight</string>
+    <string name="steps_this_week">Steps this week</string>
+    <string name="today_overview">Today overview</string>
+    <string name="history">History</string>
+    <string name="chart_today">Chart today</string>
+    <string name="weekly_average">Weekly average</string>
+    <string name="total_today">Total today</string>
+    <string name="protein">Protein</string>
+    <string name="carbs">Carbs</string>
+    <string name="fat">Fat</string>
+    <string name="meals_today">Meals today</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="kcal">kcal</string>
+    <string name="meal_photos">Meal photos</string>
+    <string name="take_photo">Take photo</string>
+    <string name="running_notif_settings">Notification Settings</string>
+    <string name="running_notif_desc">Customize notifications while running</string>
+    <string name="enable_notif">Enable Notifications</string>
+    <string name="every_step">Every step</string>
+    <string name="every_minute">Every minute</string>
+    <string name="every_kcal">Every kcal</string>
+    <string name="off">Off</string>
+    <string name="steps_format">%1$d steps</string>
+    <string name="minutes_format">%1$d minutes</string>
+    <string name="last_night">Last night</string>
+    <string name="sleep_score">Sleep score</string>
+    <string name="awake_duration_format">%1$d minutes</string>
+    <string name="sleep_this_week">Sleep this week</string>
+    <string name="weekly_avg_format">📈 Avg: %1$.1fh</string>
+    <string name="weight_example">Example: 65.5</string>
+    <string name="kcal_format">%1$d kcal</string>
+    <string name="stop_folow">Stop following</string>
+    <string name="save_goal">Save goal</string>
 </resources>

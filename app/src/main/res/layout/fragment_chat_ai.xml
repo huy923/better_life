@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="✨ AI Coach"
+                android:text="@string/ai_coach"
                 android:textColor="@color/text_title"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -48,7 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Luôn sẵn sàng hỗ trợ bạn"
+                android:text="@string/ai_coach_subtitle"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -75,7 +75,7 @@
                 android:background="@drawable/bg_chat_ai"
                 android:elevation="1dp"
                 android:padding="16dp"
-                android:text="Chào bạn! Tôi là AI Coach của bạn 🤖 Tôi thấy bạn đã đi được 7,200 bước hôm nay, chỉ còn 2,800 bước nữa thôi! Bạn có muốn tôi gợi ý cách hoàn thành mục tiêu không?"
+                android:text="@string/ai_msg_1"
                 android:textColor="@color/text_body"
                 android:textSize="14sp" />
 
@@ -89,7 +89,7 @@
                 android:background="@drawable/bg_chat_user"
                 android:elevation="1dp"
                 android:padding="16dp"
-                android:text="Mình đang mất động lực lắm, mệt quá không muốn tập nữa 😫"
+                android:text="@string/user_msg_1"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
@@ -102,7 +102,7 @@
                 android:background="@drawable/bg_chat_ai"
                 android:elevation="1dp"
                 android:padding="16dp"
-                android:text="Tôi hiểu cảm giác đó! Nhưng hãy nhìn lại nhé - bạn đã duy trì tập luyện được 15 ngày liên tục rồi! 🔥 Đó là một thành tích tuyệt vời!\n\nHãy thử cách này: Đi bộ nhẹ 10 phút thôi. Không cần chạy, chỉ cần bước đi. Thường thì khi bắt đầu, bạn sẽ muốn tiếp tục! 💪\n\nNhớ rằng: Mỗi bước đi hôm nay là một phần thưởng cho sức khỏe ngày mai! 🌟"
+                android:text="@string/ai_msg_2"
                 android:textColor="@color/text_body"
                 android:textSize="14sp" />
 
@@ -132,7 +132,7 @@
                 android:backgroundTint="#F0F4F8"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
-                android:text="Tư vấn bữa ăn hôm nay"
+                android:text="@string/quick_reply_meal"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
@@ -144,7 +144,7 @@
                 android:backgroundTint="#F0F4F8"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
-                android:text="Lịch tập phù hợp cho tôi"
+                android:text="@string/quick_reply_workout"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
@@ -155,7 +155,7 @@
                 android:backgroundTint="#F0F4F8"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
-                android:text="Tôi muốn thêm..."
+                android:text="@string/quick_reply_more"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -196,7 +196,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="Hỏi AI Coach..."
+                android:hint="@string/chat_hint"
                 android:minHeight="40dp"
                 android:textSize="14sp" />
 

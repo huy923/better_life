@@ -40,7 +40,7 @@
                 android:id="@+id/tv_history_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tập luyện"
+                android:text="@string/exercise_30_min"
                 android:textColor="@color/goals_streak_orange"
                 android:textSize="12sp" />
         </LinearLayout>

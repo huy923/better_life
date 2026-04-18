@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Chào buổi sáng 👋"
+                android:text="@string/greeting"
                 android:textColor="#CCFFFFFF"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
                 android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nguyễn Văn A"
+                android:text="@string/default_user"
                 android:textColor="@color/white"
                 android:textSize="26sp"
                 android:textStyle="bold"
@@ -95,9 +95,10 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_steps_goal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="/ 10,000 bước"
+                        android:text="@string/steps_goal_format"
                         android:textColor="#CCFFFFFF"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -133,18 +134,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="✨ AI Coach"
+                        android:text="@string/ai_coach"
                         android:textColor="@color/ai_coach_icon"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_ai_msg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="&quot;Tuyệt vời! Bạn đang vận động rất tốt...&quot;"
+                        android:text="@string/ai_coach_msg"
                         android:textColor="@color/text_body"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -162,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="32dp"
-            android:text="Chỉ số sức khỏe"
+            android:text="@string/health_index"
             android:textColor="@color/text_title"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -199,15 +201,6 @@
                 android:layout_columnWeight="1"
                 android:layout_margin="8dp" />
 
-            <!-- Water -->
-            <include
-                android:id="@+id/card_water"
-                layout="@layout/item_health_card_water"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp" />
-
             <!-- Weight -->
             <include
                 android:id="@+id/card_weight"
@@ -224,7 +217,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
-            android:text="Hành động nhanh"
+            android:text="@string/quick_actions"
             android:textColor="@color/text_title"
             android:textSize="18sp"
             android:textStyle="bold" />

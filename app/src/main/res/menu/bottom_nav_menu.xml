@@ -3,24 +3,24 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
-        android:title="Trang chủ" />
+        android:title="@string/nav_home" />
     <item
         android:id="@+id/nav_health"
         android:icon="@drawable/ic_heart"
-        android:title="Sức khỏe"
+        android:title="@string/nav_health"
         />
 <!-- android:actionLayout="@layout/activity_main"-->
     <item
         android:id="@+id/nav_chatbox"
         android:icon="@drawable/circle"
-        android:title="AI Tư vấn"
+        android:title="@string/nav_chat"
         />
     <item
         android:id="@+id/nav_goals"
         android:icon="@drawable/ic_run"
-        android:title="Mục tiêu" />
+        android:title="@string/nav_goals" />
     <item
         android:id="@+id/nav_settings"
         android:icon="@drawable/ic_settings"
-        android:title="Cài đặt" />
+        android:title="@string/nav_settings" />
 </menu>

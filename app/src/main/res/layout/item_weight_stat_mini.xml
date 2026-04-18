@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
@@ -17,7 +18,7 @@
             android:id="@+id/tv_mini_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TB tuần"
+            tools:text="TB tuần"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
 
@@ -26,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="70.8"
+            tools:text="70.8"
             android:textColor="@color/text_title"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -34,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="kg"
+            android:text="@string/kg"
             android:textColor="@color/text_secondary"
             android:textSize="11sp" />
     </LinearLayout>

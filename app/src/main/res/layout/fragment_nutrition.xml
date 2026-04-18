@@ -34,7 +34,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dinh dững hôm nay"
+                        android:text="@string/total_today"
                         android:textColor="#E0F2F1"
                         android:textSize="14sp" />
 
@@ -82,7 +82,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="🔥 Protein: 65g"
+                            android:text="🔥 Protein"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
 
@@ -90,7 +90,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="🍞 Carbs: 180g"
+                            android:text="🍞 Carbs"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
 
@@ -98,7 +98,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="🥑 Fat: 45g"
+                            android:text="🥑 Fat"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
                     </LinearLayout>
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Bữa ăn hôm nay"
+                android:text="@string/meals_today"
                 android:textColor="@color/text_title"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -146,7 +146,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bữa sáng"
+                            android:text="@string/breakfast"
                             android:textColor="@color/text_title"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -199,7 +199,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bữa trưa"
+                            android:text="@string/lunch"
                             android:textColor="@color/text_title"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -252,7 +252,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bữa tối"
+                            android:text="@string/dinner"
                             android:textColor="@color/text_title"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -281,7 +281,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text=" Gợi ý cho bạn"
+                android:text="@string/ai_suggestion"
                 android:textColor="@color/text_title"
                 android:textSize="18sp"
                 android:textStyle="bold" />

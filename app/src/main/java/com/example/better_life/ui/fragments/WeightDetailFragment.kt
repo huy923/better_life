@@ -126,28 +126,28 @@ class WeightDetailFragment : Fragment() {
         ItemBmiRangeBinding.bind(binding.rangeUnder.root).apply {
             dot.setBackgroundResource(R.drawable.bg_indicator_dot)
             dot.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#4FC3F7"))
-            label.text = "Thiếu cân"
+            label.text = getString(R.string.bmi_status_under)
             range.text = "< 18.5"
         }
         // Normal
         ItemBmiRangeBinding.bind(binding.rangeNormal.root).apply {
             dot.setBackgroundResource(R.drawable.bg_indicator_dot)
             dot.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#2DD1AC"))
-            label.text = "Bình thường"
+            label.text = getString(R.string.bmi_status_normal)
             range.text = "18.5-24.9"
         }
         // Overweight
         ItemBmiRangeBinding.bind(binding.rangeOver.root).apply {
             dot.setBackgroundResource(R.drawable.bg_indicator_dot)
             dot.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#FFB74D"))
-            label.text = "Thừa cân"
+            label.text = getString(R.string.bmi_status_over)
             range.text = "25-29.9"
         }
         // Obese
         ItemBmiRangeBinding.bind(binding.rangeObese.root).apply {
             dot.setBackgroundResource(R.drawable.bg_indicator_dot)
             dot.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#EF5350"))
-            label.text = "Béo phì"
+            label.text = getString(R.string.bmi_status_obese)
             range.text = "≥ 30"
         }
     }
@@ -209,7 +209,7 @@ class WeightDetailFragment : Fragment() {
             viewModel.user.collectLatest { user ->
                 user?.let {
                     binding.tvGoalWeight.text = String.format(Locale.getDefault(), "%.0f", it.targetWeight ?: 65.0)
-                    binding.tvHeightInfo.text = "Chiều cao: ${it.height.toInt()} cm"
+                    binding.tvHeightInfo.text = getString(R.string.height_format, it.height.toInt())
                     updateGoalProgress(it.weight, it.targetWeight ?: 65.0)
                 }
             }
@@ -226,15 +226,15 @@ class WeightDetailFragment : Fragment() {
         val max = history.maxByOrNull { it.weight }?.weight ?: 0.0
 
         val avgBinding = ItemWeightStatMiniBinding.bind(binding.statAvg.root)
-        avgBinding.tvMiniLabel.text = "TB tuần"
+        avgBinding.tvMiniLabel.text = getString(R.string.stat_avg_week)
         avgBinding.tvMiniValue.text = String.format(Locale.getDefault(), "%.1f", avg)
 
         val minBinding = ItemWeightStatMiniBinding.bind(binding.statMin.root)
-        minBinding.tvMiniLabel.text = "Thấp nhất"
+        minBinding.tvMiniLabel.text = getString(R.string.stat_min)
         minBinding.tvMiniValue.text = String.format(Locale.getDefault(), "%.1f", min)
 
         val maxBinding = ItemWeightStatMiniBinding.bind(binding.statMax.root)
-        maxBinding.tvMiniLabel.text = "Cao nhất"
+        maxBinding.tvMiniLabel.text = getString(R.string.stat_max)
         maxBinding.tvMiniValue.text = String.format(Locale.getDefault(), "%.1f", max)
 
         if (history.size >= 2) {
@@ -242,14 +242,14 @@ class WeightDetailFragment : Fragment() {
             val previous = history[history.size - 2].weight
             val diff = latest - previous
             val diffSign = if (diff >= 0) "↗ +" else "↘ "
-            binding.tvDiffLast.text = String.format(Locale.getDefault(), "%s%.1f kg lần trước", diffSign, diff)
+            binding.tvDiffLast.text = getString(R.string.diff_last_format, diffSign, diff)
         }
 
         val initial = history.first().weight
         val latest = history.last().weight
         val totalDiff = latest - initial
         val totalDiffSign = if (totalDiff >= 0) "↗ +" else "↘ "
-        binding.tvDiffTotal.text = String.format(Locale.getDefault(), "%s%.1f kg tổng", totalDiffSign, totalDiff)
+        binding.tvDiffTotal.text = getString(R.string.diff_total_format, totalDiffSign, totalDiff)
     }
 
     private fun updateGoalProgress(current: Double, target: Double) {
@@ -266,9 +266,9 @@ class WeightDetailFragment : Fragment() {
 
         val remaining = current - target
         binding.tvGoalRemaining.text = if (remaining > 0) {
-            String.format(Locale.getDefault(), "Còn %.1f kg", remaining)
+            getString(R.string.remaining_format, remaining)
         } else {
-            "Đã đạt mục tiêu!"
+            getString(R.string.goal_reached)
         }
         
         // Progress bar logic
@@ -292,18 +292,18 @@ class WeightDetailFragment : Fragment() {
         val heightInMeters = user.height / 100.0
         val bmi = weight / (heightInMeters * heightInMeters)
         
-        binding.tvBmiMiniValue.text = String.format(Locale.getDefault(), "%.1f", bmi)
+        binding.tvBmiValue.text = String.format(Locale.getDefault(), "%.1f", bmi)
         binding.tvBmiIndicatorVal.text = String.format(Locale.getDefault(), "%.1f", bmi)
         
-        val (status, color) = when {
-            bmi < 18.5 -> "Thiếu cân" to "#4FC3F7"
-            bmi < 25 -> "Bình thường" to "#2DD1AC"
-            bmi < 30 -> "Thừa cân" to "#FFB74D"
-            else -> "Béo phì" to "#EF5350"
+        val (statusRes, color) = when {
+            bmi < 18.5 -> R.string.bmi_status_under to "#4FC3F7"
+            bmi < 25 -> R.string.bmi_status_normal to "#2DD1AC"
+            bmi < 30 -> R.string.bmi_status_over to "#FFB74D"
+            else -> R.string.bmi_status_obese to "#EF5350"
         }
         
-        binding.tvBmiMiniStatus.text = status
-        binding.tvBmiMiniStatus.setTextColor(Color.parseColor(color))
+        binding.tvBmiStatus.text = getString(statusRes)
+        binding.tvBmiStatus.setTextColor(Color.parseColor(color))
         
         // Update BMI Indicator Position
         binding.root.post {

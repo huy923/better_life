@@ -56,10 +56,10 @@ class MealManager(
     fun processMealImage(filePath: String) {
         val food = listOf("Phở Bò" to 450, "Cơm Tấm" to 600, "Bánh Mì" to 320, "Salad Ức Gà" to 280).random()
         AlertDialog.Builder(context, R.style.CustomDialogTheme)
-            .setTitle("Kết quả AI")
-            .setMessage("Phát hiện: ${food.first}\nCalories: ${food.second} kcal\n\nBạn có muốn lưu không?")
-            .setPositiveButton("Lưu") { _, _ -> saveMealToDb(food.first, food.second, filePath) }
-            .setNegativeButton("Hủy", null)
+            .setTitle(context.getString(R.string.ai_result_title))
+            .setMessage(context.getString(R.string.ai_detect_format, food.first, food.second))
+            .setPositiveButton(context.getString(R.string.save)) { _, _ -> saveMealToDb(food.first, food.second, filePath) }
+            .setNegativeButton(context.getString(R.string.cancel), null)
             .show()
     }
 

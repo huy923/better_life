@@ -117,10 +117,10 @@ class HomeFragment : Fragment() {
                     viewModel.updateWeight(weight)
                     dialog.dismiss()
                 } else {
-                    etWeight.error = "Vui lòng nhập số hợp lệ"
+                    etWeight.error = getString(R.string.invalid_number)
                 }
             } else {
-                etWeight.error = "Không được để trống"
+                etWeight.error = getString(R.string.empty_field)
             }
         }
 

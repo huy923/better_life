@@ -38,7 +38,7 @@
                     android:id="@+id/tv_run_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hôm nay"
+                    android:text="@string/today"
                     android:textColor="@color/text_title"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -47,7 +47,7 @@
                     android:id="@+id/tv_run_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chạy bộ"
+                    android:text="@string/running"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Hoàn thành"
+                    android:text="@string/completed"
                     android:textColor="#66BB6A"
                     android:textSize="11sp"
                     android:textStyle="bold" />
@@ -101,7 +101,7 @@
                     android:textColor="@color/text_title"
                     android:textSize="15sp"
                     android:textStyle="bold" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Thời gian" android:textColor="@color/text_secondary" android:textSize="11sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="@string/time" android:textColor="@color/text_secondary" android:textSize="11sp" />
             </LinearLayout>
 
             <!-- Steps -->
@@ -112,7 +112,7 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
                 <TextView android:id="@+id/tv_run_steps" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3,200" android:textColor="@color/text_title" android:textStyle="bold" android:textSize="15sp" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Bước" android:textColor="@color/text_secondary" android:textSize="11sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="@string/steps" android:textColor="@color/text_secondary" android:textSize="11sp" />
             </LinearLayout>
 
             <!-- Kcal -->
@@ -134,8 +134,9 @@
                 android:orientation="vertical"
                 android:gravity="end">
                 <TextView android:id="@+id/tv_run_distance" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3.2 km" android:textColor="@color/text_title" android:textStyle="bold" android:textSize="15sp" />
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Khoảng cách" android:textColor="@color/text_secondary" android:textSize="11sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="@string/distance" android:textColor="@color/text_secondary" android:textSize="11sp" />
             </LinearLayout>
+
 
         </LinearLayout>
     </LinearLayout>

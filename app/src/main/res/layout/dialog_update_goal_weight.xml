@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Mục tiêu cân nặng"
+                android:text="@string/update_goal_title"
                 android:textColor="@color/text_title"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -39,11 +39,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Đặt mục tiêu cân nặng của bạn"
+            android:text="@string/update_goal_desc"
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginTop="24dp"
@@ -65,12 +65,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:text="kg"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="@string/kg"
                 android:textColor="@color/text_title"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-        </FrameLayout>
+        </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_update"
@@ -78,7 +79,7 @@
             android:layout_height="56dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/bg_weight_card_gradient"
-            android:text="Cập nhật"
+            android:text="@string/update"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"

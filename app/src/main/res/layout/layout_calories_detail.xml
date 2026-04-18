@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Calories"
+                    android:text="@string/calories"
                     android:textColor="@color/text_title"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -77,7 +77,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Hôm nay"
+                            android:text="@string/today"
                             android:textColor="@color/text_secondary"
                             android:textSize="12sp" />
 
@@ -94,7 +94,7 @@
                             android:id="@+id/tv_calories_target"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="/ 2,500 kcal"
+                            android:text="@string/calories_target_format"
                             android:textColor="@color/text_secondary"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -140,7 +140,7 @@
                             android:id="@+id/tv_meal_photos_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="📸 Ảnh bữa ăn"
+                            android:text="@string/meal_photos_title"
                             android:textColor="@color/text_title"
                             android:textStyle="bold" />
 
@@ -148,7 +148,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:text="🕒 Lưu 3 ngày"
+                            android:text="@string/save_duration_info"
                             android:textColor="@color/text_secondary"
                             android:textSize="12sp" />
                     </RelativeLayout>
@@ -178,14 +178,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Chụp ảnh bữa ăn"
+                            android:text="@string/take_photo"
                             android:textColor="@color/text_title"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="AI sẽ tính calories tự động"
+                            android:text="@string/ai_calc_auto"
                             android:textColor="@color/text_secondary"
                             android:textSize="12sp" />
                     </LinearLayout>

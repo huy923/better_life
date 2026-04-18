@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_main">
@@ -35,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Giấc ngủ"
+                    android:text="@string/sleep"
                     android:textColor="@color/text_title"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -83,7 +84,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Đêm qua"
+                                android:text="@string/last_night"
                                 android:textColor="@color/text_secondary"
                                 android:textSize="12sp" />
 
@@ -91,7 +92,7 @@
                                 android:id="@+id/tv_sleep_duration"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="7h 30p"
+                                tools:text="7h 30p"
                                 android:textColor="@color/icon_sleep"
                                 android:textSize="32sp"
                                 android:textStyle="bold" />
@@ -118,7 +119,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="4dp"
-                                android:text="85"
+                                tools:text="85"
                                 android:textColor="@color/icon_sleep"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -144,8 +145,8 @@
                             android:padding="12dp">
                             <ImageView android:layout_width="18dp" android:layout_height="18dp"
                                 android:src="@drawable/ic_sleep_start" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Đi ngủ" android:textSize="10sp" android:textColor="@color/text_secondary" />
-                            <TextView android:id="@+id/tv_sleep_start" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="23:00" android:textStyle="bold" android:textColor="@color/text_title" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/sleep_start" android:textSize="10sp" android:textColor="@color/text_secondary" />
+                            <TextView android:id="@+id/tv_sleep_start" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="23:00" android:textStyle="bold" android:textColor="@color/text_title" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -160,8 +161,8 @@
                             android:padding="12dp">
                             <ImageView android:layout_width="18dp" android:layout_height="18dp"
                                 android:src="@drawable/ic_wake_up" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Thức dậy" android:textSize="10sp" android:textColor="@color/text_secondary" />
-                            <TextView android:id="@+id/tv_sleep_end" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="06:30" android:textStyle="bold" android:textColor="@color/text_title" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/wake_up" android:textSize="10sp" android:textColor="@color/text_secondary" />
+                            <TextView android:id="@+id/tv_sleep_end" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="06:30" android:textStyle="bold" android:textColor="@color/text_title" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -175,8 +176,8 @@
                             android:padding="12dp">
                             <ImageView android:layout_width="18dp" android:layout_height="18dp"
                                 android:src="@drawable/ic_watch" app:tint="@color/deep_sleep_color" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Ngủ sâu" android:textSize="10sp" android:textColor="@color/text_secondary" />
-                            <TextView android:id="@+id/tv_deep_sleep_duration_summary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2h 45p" android:textStyle="bold" android:textColor="@color/text_title" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/deep_sleep" android:textSize="10sp" android:textColor="@color/text_secondary" />
+                            <TextView android:id="@+id/tv_deep_sleep_duration_summary" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="2h 45p" android:textStyle="bold" android:textColor="@color/text_title" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -199,7 +200,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Giai đoạn giấc ngủ"
+                        android:text="@string/sleep_stages"
                         android:textColor="@color/text_title"
                         android:textStyle="bold" />
 
@@ -232,9 +233,9 @@
                         <!-- Awake -->
                         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
                             <View android:id="@+id/dot_awake" android:layout_width="12dp" android:layout_height="12dp" android:layout_centerVertical="true" android:background="@drawable/circle_white_alpha" android:backgroundTint="@color/awake_color" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_toEndOf="@id/dot_awake" android:text="Thức" android:textColor="@color/text_secondary" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_toEndOf="@id/dot_awake" android:text="@string/awake" android:textColor="@color/text_secondary" android:textSize="14sp" />
                             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:gravity="center_vertical">
-                                <TextView android:id="@+id/tv_awake_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="30 phút" android:textColor="@color/text_title" android:textStyle="bold" android:textSize="14sp" />
+                                <TextView android:id="@+id/tv_awake_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="30 phút" android:textColor="@color/text_title" android:textStyle="bold" android:textSize="14sp" />
                                 <View android:layout_width="40dp" android:layout_height="6dp" android:layout_marginStart="8dp" android:background="@drawable/mini_progress_bar" android:backgroundTint="@color/awake_color" />
                             </LinearLayout>
                         </RelativeLayout>
@@ -242,9 +243,9 @@
                         <!-- Light Sleep -->
                         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
                             <View android:id="@+id/dot_light" android:layout_width="12dp" android:layout_height="12dp" android:layout_centerVertical="true" android:background="@drawable/circle_white_alpha" android:backgroundTint="@color/light_sleep_color" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_toEndOf="@id/dot_light" android:text="Ngủ nông" android:textColor="@color/text_secondary" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_toEndOf="@id/dot_light" android:text="@string/light_sleep" android:textColor="@color/text_secondary" android:textSize="14sp" />
                             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:gravity="center_vertical">
-                                <TextView android:id="@+id/tv_light_sleep_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2h 15p" android:textColor="@color/text_title" android:textStyle="bold" android:textSize="14sp" />
+                                <TextView android:id="@+id/tv_light_sleep_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="2h 15p" android:textColor="@color/text_title" android:textStyle="bold" android:textSize="14sp" />
                                 <View android:layout_width="60dp" android:layout_height="6dp" android:layout_marginStart="8dp" android:background="@drawable/mini_progress_bar" android:backgroundTint="@color/light_sleep_color" />
                             </LinearLayout>
                         </RelativeLayout>
@@ -252,9 +253,9 @@
                         <!-- Deep Sleep -->
                         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
                             <View android:id="@+id/dot_deep" android:layout_width="12dp" android:layout_height="12dp" android:layout_centerVertical="true" android:background="@drawable/circle_white_alpha" android:backgroundTint="@color/deep_sleep_color" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_toEndOf="@id/dot_deep" android:text="Ngủ sâu" android:textColor="@color/text_secondary" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_toEndOf="@id/dot_deep" android:text="@string/deep_sleep" android:textColor="@color/text_secondary" android:textSize="14sp" />
                             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:gravity="center_vertical">
-                                <TextView android:id="@+id/tv_deep_sleep_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2h 45p" android:textColor="@color/text_title" android:textStyle="bold" android:textSize="14sp" />
+                                <TextView android:id="@+id/tv_deep_sleep_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="2h 45p" android:textColor="@color/text_title" android:textStyle="bold" android:textSize="14sp" />
                                 <View android:layout_width="80dp" android:layout_height="6dp" android:layout_marginStart="8dp" android:background="@drawable/mini_progress_bar" android:backgroundTint="@color/deep_sleep_color" />
                             </LinearLayout>
                         </RelativeLayout>
@@ -262,9 +263,9 @@
                         <!-- REM -->
                         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                             <View android:id="@+id/dot_rem" android:layout_width="12dp" android:layout_height="12dp" android:layout_centerVertical="true" android:background="@drawable/circle_white_alpha" android:backgroundTint="@color/rem_sleep_color" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_toEndOf="@id/dot_rem" android:text="REM" android:textColor="@color/text_secondary" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_toEndOf="@id/dot_rem" android:text="@string/rem" android:textColor="@color/text_secondary" android:textSize="14sp" />
                             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:gravity="center_vertical">
-                                <TextView android:id="@+id/tv_rem_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2h" android:textColor="@color/text_title" android:textStyle="bold" android:textSize="14sp" />
+                                <TextView android:id="@+id/tv_rem_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="2h" android:textColor="@color/text_title" android:textStyle="bold" android:textSize="14sp" />
                                 <View android:layout_width="50dp" android:layout_height="6dp" android:layout_marginStart="8dp" android:background="@drawable/mini_progress_bar" android:backgroundTint="@color/rem_sleep_color" />
                             </LinearLayout>
                         </RelativeLayout>
@@ -294,7 +295,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Giấc ngủ tuần này"
+                            android:text="@string/sleep_this_week"
                             android:textColor="@color/text_title"
                             android:textStyle="bold" />
                         <TextView
@@ -302,7 +303,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:text="📈 TB: 7.4h"
+                            tools:text="📈 TB: 7.4h"
                             android:textColor="@color/trend_up"
                             android:textSize="12sp"
                             android:textStyle="bold" />

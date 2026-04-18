@@ -78,7 +78,7 @@ class HeartRateManager(
 
     private fun updateStatusUI(view: View) {
         val btnStart = view.findViewById<TextView>(R.id.btn_start_hr)
-        btnStart?.text = if (isTracking) "DỪNG ĐO" else "BẮT ĐẦU ĐO"
+        btnStart?.text = if (isTracking) context.getString(R.string.stop_measure) else context.getString(R.string.start_measure)
         btnStart?.setBackgroundResource(if (isTracking) R.drawable.bg_red_border else R.drawable.button_green)
     }
 }

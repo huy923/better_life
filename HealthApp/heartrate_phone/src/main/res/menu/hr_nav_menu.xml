@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_hr_live"
-        android:title="Đo nhịp tim"
-        android:icon="@android:drawable/ic_menu_compass"/>
-    <item android:id="@+id/nav_hr_history"
-        android:title="Lịch sử"
-        android:icon="@android:drawable/ic_menu_recent_history"/>
-</menu>

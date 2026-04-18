@@ -48,7 +48,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Hoàn thành hôm nay"
+                            android:text="@string/completed_today"
                             android:textColor="#E1BEE7"
                             android:textSize="12sp" />
 
@@ -63,7 +63,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cố lên! Bạn gần hoàn thành rồi! 🔥"
+                            android:text="@string/keep_it_up"
                             android:textColor="#E1BEE7"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -101,7 +101,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_toEndOf="@id/iv_goal1_icon"
-                            android:text="Đi bộ mỗi ngày"
+                            android:text="@string/daily_walk"
                             android:textColor="@color/text_title"
                             android:textStyle="bold" />
 
@@ -169,7 +169,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_toEndOf="@id/iv_goal2_icon"
-                            android:text="Uống đủ nước"
+                            android:text="@string/drink_enough_water"
                             android:textColor="@color/text_title"
                             android:textStyle="bold" />
 
@@ -236,7 +236,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Ngủ đủ giấc"
+                                android:text="@string/enough_sleep"
                                 android:textColor="@color/text_secondary"
                                 android:textStyle="bold" />
                             <ImageView
@@ -289,7 +289,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Không ăn vặt sau 8h tối"
+                                android:text="@string/no_snack_after_8"
                                 android:textColor="@color/text_secondary"
                                 android:textStyle="bold" />
                             <ImageView
@@ -345,7 +345,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Không ăn vặt sau 8h tối"
+                                android:text="@string/no_snack_after_8"
                                 android:textColor="@color/text_secondary"
                                 android:textStyle="bold" />
                             <ImageView
@@ -380,7 +380,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+ Thêm mục tiêu mới"
+                    android:text="@string/add_new_goal"
                     android:textColor="@color/primary_teal"
                     android:textStyle="bold" />
             </LinearLayout>
