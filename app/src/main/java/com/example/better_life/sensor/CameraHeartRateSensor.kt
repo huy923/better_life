@@ -13,7 +13,7 @@ import kotlin.math.sqrt
 /**
  * PPG (Photoplethysmography) heart rate estimation using rear camera flash + sensor.
  */
-class CameraHeartRateSensor(private val context: Context) {
+class CameraHeartRateSensor(private val context: Context){
 
     private val cameraManager = context.getSystemService(CameraManager::class.java)
     private var cameraDevice: CameraDevice? = null

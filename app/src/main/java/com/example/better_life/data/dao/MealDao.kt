@@ -15,6 +15,9 @@ interface MealDao {
     @Query("SELECT SUM(calories) FROM meal_records WHERE date(timestamp / 1000, 'unixepoch') = date('now')")
     fun getTodayTotalCalories(): Flow<Int?>
 
+    @Query("SELECT * FROM meal_records WHERE date(timestamp / 1000, 'unixepoch') = date('now')")
+    fun getTodayMeals(): Flow<List<MealRecord>>
+
     @Query("SELECT * FROM meal_records WHERE mealType = :type AND date(timestamp / 1000, 'unixepoch') = date('now')")
     suspend fun getMealByTypeToday(type: String): MealRecord?
 

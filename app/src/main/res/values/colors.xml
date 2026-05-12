@@ -5,21 +5,23 @@
     <color name="brown">#FF8D6E63</color>
 
     <!-- Teal Theme for Weight (Matching the image) -->
-    <color name="weight_primary">#2DD1AC</color>
-    <color name="weight_primary_variant">#19B692</color>
-    <color name="weight_bg_light">#F5FAF9</color>
-    <color name="weight_card_gradient_start">#36D9B6</color>
-    <color name="weight_card_gradient_end">#1CB697</color>
-    <color name="weight_badge_bg">#33FFFFFF</color>
+    <color name="weight_primary">#2DD1AC</color> <!-- Màu xanh nhạt cho primary -->
+    <color name="weight_primary_variant">#19B692</color> <!-- Màu xanh đậm cho primary variant -->
+    <color name="weight_bg_light">#F5FAF9</color> <!-- Màu xanh nhạt cho nền -->
+    <color name="weight_card_gradient_start">#36D9B6</color> <!-- Màu xanh đậm cho gradient start -->
+    <color name="weight_card_gradient_end">#1CB697</color> <!-- Màu xanh đậm cho gradient end -->
+    <color name="weight_badge_bg">#33FFFFFF</color> <!-- Màu xanh đậm cho badge nền -->
+
     <!-- Warm Theme Palette -->
     <color name="bg_main">#FFFBF5</color> <!-- Màu kem ấm -->
     <color name="primary_teal">#FF8A65</color> <!-- Cam san hô ấm -->
-    <color name="primary_teal_dark">#E64A19</color>
-    <color name="primary_teal_light">#FBE9E7</color>
+    <color name="primary_teal_dark">#E64A19</color> <!-- Đỏ đậm ấm -->
+    <color name="primary_teal_light">#FBE9E7</color> <!-- Kem ấm cho cam san hô -->
 
-    <color name="text_title">#2D241E</color>
-    <color name="text_body">#5D4037</color>
-    <color name="text_secondary">#8D6E63</color>
+    <color name="text_title">#2D241E</color> <!-- Đỏ đậm ấm cho văn bản tiêu đề -->
+    <color name="text_body">#5D4037</color> <!-- Đỏ đậm ấm cho văn bản chính -->
+    <color name="text_secondary">#8D6E63</color> <!-- Cam san hô ấm cho văn bản phụ -->
+
 
     <color name="card_heart">#FFF0F0</color>
     <color name="icon_heart">#FF5252</color>
@@ -59,4 +61,5 @@
     <color name="light_sleep_color">#B39DDB</color>
     <color name="deep_sleep_color">#7E57C2</color>
     <color name="rem_sleep_color">#4DD0E1</color>
+    <color name="health_stat_bg">#2C2C2C</color>
 </resources>

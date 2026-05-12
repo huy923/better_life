@@ -3,9 +3,8 @@ package com.example.better_life.data.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "users")
 data class User(
-    @PrimaryKey val id: Int = 1,
+    val id: Int = 1,
     val name: String,
     val age: Int,
     val height: Int,

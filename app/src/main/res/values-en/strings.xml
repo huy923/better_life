@@ -169,5 +169,6 @@
     <string name="weight_example">Example: 65.5</string>
     <string name="kcal_format">%1$d kcal</string>
     <string name="stop_folow">Stop following</string>
+    <string name="hours">hours</string>
     <string name="save_goal">Save goal</string>
 </resources>

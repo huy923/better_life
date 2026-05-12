@@ -18,5 +18,4 @@
 
     <!-- Adjusting background colors for items in dark mode -->
     <color name="primary_teal_light">#1A3330</color>
-    <color name="health_stat_bg">#2C2C2C</color>
 </resources>

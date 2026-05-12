@@ -9,6 +9,7 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -16,6 +17,8 @@ import android.transition.Fade
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -33,14 +36,17 @@ import androidx.core.os.LocaleListCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.better_life.data.DemoData
+import com.example.better_life.data.UserManager
 import com.example.better_life.data.database.AppDatabase
 import com.example.better_life.data.entities.MealRecord
+import com.example.better_life.data.entities.User
 import com.example.better_life.sensor.StepCounterManager
 import com.example.better_life.services.TrackingService
 import com.example.better_life.ui.HeartRateManager
 import com.example.better_life.ui.RunningManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.io.File
@@ -52,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNav: BottomNavigationView
     private var currentLayoutId: Int = R.layout.layout_home
     private lateinit var database: AppDatabase
+    private lateinit var userManager: UserManager
     
     private lateinit var stepCounterManager: StepCounterManager
     private lateinit var heartRateManager: HeartRateManager
@@ -85,6 +92,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         database = AppDatabase.getDatabase(this)
+        userManager = UserManager(this)
         stepCounterManager = StepCounterManager(this)
         heartRateManager = HeartRateManager(this, database, lifecycleScope)
         runningManager = RunningManager(this, database, lifecycleScope, stepCounterManager)
@@ -93,10 +101,14 @@ class MainActivity : AppCompatActivity() {
             currentLayoutId = it.getInt("CURRENT_LAYOUT_ID", R.layout.layout_home)
         }
 
-        lifecycleScope.launch {
-            val user = database.userDao().getUser().first()
-            if (user == null) DemoData.insertSampleData(database)
-        }
+//        lifecycleScope.launch {
+//            val user = userManager.getUser()
+//            // We can check if name is default to decide if we need sample data
+//            if (user.name == "Nguyễn Văn A" && user.weight == 65.5) {
+//                // For demo, we still might want to insert other sample data
+//                DemoData.insertSampleData(database, userManager)
+//            }
+//        }
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.TRANSPARENT
@@ -198,7 +210,7 @@ class MainActivity : AppCompatActivity() {
         val tvCurrentLanguage = view.findViewById<TextView>(R.id.tv_current_language)
         val currentLocale = AppCompatDelegate.getApplicationLocales()[0]?.language ?: "vi"
         tvCurrentLanguage.text = if (currentLocale == "en") getString(R.string.lang_en) else getString(R.string.lang_vi)
-        layoutLanguage.setOnClickListener { 
+        layoutLanguage.setOnClickListener {
             Animation.applyClick(it) { showLanguageDialog() }
         }
     }
@@ -211,11 +223,12 @@ class MainActivity : AppCompatActivity() {
         }.show()
     }
 
+    @SuppressLint("StringFormatMatches", "StringFormatInvalid")
     private fun bindDataToView(layoutId: Int, view: View) {
         lifecycleScope.launch {
             when (layoutId) {
                 R.layout.layout_home -> {
-                    launch { database.userDao().getUser().collectLatest { it?.let { view.findViewById<TextView>(R.id.tv_username)?.text = it.name } } }
+                    launch { userManager.userFlow.collectLatest { it?.let { view.findViewById<TextView>(R.id.tv_username)?.text = it.name } } }
                     
                     launch { database.heartRateDao().getLatestRecord().collectLatest { it?.let { 
                         val cardHr = view.findViewById<View>(R.id.card_heart_rate)
@@ -223,21 +236,31 @@ class MainActivity : AppCompatActivity() {
                         cardHr?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.layout_heart_rate_detail) } }
                     } } }
                     
-                    launch { database.mealDao().getTodayTotalCalories().collectLatest { total ->
-                        val cardCal = view.findViewById<View>(R.id.card_calories)
-                        cardCal?.findViewById<TextView>(R.id.tv_value)?.text = (total ?: 0).toString()
-                        cardCal?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.layout_calories_detail) } }
-                    } }
+                    launch { 
+                        combine(
+                            database.mealDao().getTodayTotalCalories(),
+                            userManager.userFlow
+                        ) { total: Int?, user: User ->
+                            Pair(total ?: 0, user.targetCalories)
+                        }.collectLatest { (total, target) ->
+                            val cardCal = view.findViewById<View>(R.id.card_calories)
+                            cardCal?.findViewById<TextView>(R.id.tv_value)?.text = total.toString()
+                            val pb = cardCal?.findViewById<ProgressBar>(R.id.pb_calories)
+                            pb?.max = target
+                            pb?.progress = total
+                            cardCal?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.layout_calories_detail) } }
+                        }
+                    }
                     
                     launch { database.sleepDao().getLatestRecord().collectLatest { it?.let { 
                         val cardSleep = view.findViewById<View>(R.id.card_sleep)
                         val totalMinutes = (it.endTime - it.startTime) / 60000
                         cardSleep?.findViewById<TextView>(R.id.tv_value)?.text = String.format(Locale.getDefault(), "%.1f", totalMinutes / 60.0)
+                        cardSleep?.findViewById<ProgressBar>(R.id.pb_progress)?.progress = ((totalMinutes / 60.0) / 8.0 * 100).toInt().coerceAtMost(100)
                         cardSleep?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.layout_sleep_detail) } }
                     } } }
 
-                    launch {
-                        database.weightDao().getLatestWeight().collectLatest { record ->
+                    launch { database.weightDao().getLatestWeight().collectLatest { record ->
                             val cardWeight = view.findViewById<View>(R.id.card_weight)
                             cardWeight?.findViewById<TextView>(R.id.tv_value)?.text = String.format(Locale.getDefault(), "%.1f", record?.weight ?: 0.0)
                             cardWeight?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.fragment_weight_detail) } }
@@ -258,14 +281,66 @@ class MainActivity : AppCompatActivity() {
                 R.layout.layout_running_detail -> runningManager.setupRunningUI(view)
 
                 R.layout.layout_calories_detail -> {
-                    launch { database.mealDao().getTodayTotalCalories().collectLatest { total ->
-                        val current = total ?: 0
-                        val tvTotal = view.findViewById<TextView>(R.id.tv_calories_total)
-                        Animation.animateTextValue(tvTotal, 0, current)
-                        
-                        val pbCircle = view.findViewById<ProgressBar>(R.id.pb_calories_circle)
-                        Animation.animateProgress(pbCircle, 0, current)
-                    } }
+                    val tvTotal = view.findViewById<TextView>(R.id.tv_calories_total)
+                    val tvTarget = view.findViewById<TextView>(R.id.tv_calories_target)
+                    val tvRemaining = view.findViewById<TextView>(R.id.tv_calories_remaining)
+                    val tvTodayStatus = view.findViewById<TextView>(R.id.tv_today_status)
+                    val pbCircle = view.findViewById<ProgressBar>(R.id.pb_calories_circle)
+
+                    var lastTotal = 0
+                    var lastProgress = 0
+                    
+                    launch {
+                        userManager.userFlow.collect { user ->
+                            tvTarget.text = "/ ${user.targetCalories} kcal"
+                            pbCircle.max = user.targetCalories
+                            
+                            val current = lastTotal
+                            val remaining = (user.targetCalories - current).coerceAtLeast(0)
+                            tvRemaining.text = "$remaining kcal"
+
+                            val status = when {
+                                user.targetCalories <= 1800 -> getString(R.string.lose_weight)
+                                user.targetCalories <= 2500 -> getString(R.string.maintain_weight)
+                                user.targetCalories <= 3000 -> getString(R.string.gain_weight)
+                                else -> getString(R.string.custom_goal)
+                            }
+                            tvTodayStatus.text = "Hôm nay · $status"
+                        }
+                    }
+
+                    launch {
+                        database.mealDao().getTodayTotalCalories().collect { total ->
+                            val current = total ?: 0
+                            Animation.animateTextValue(tvTotal, lastTotal, current)
+                            lastTotal = current
+                            
+                            val target = userManager.getUser().targetCalories
+                            val remaining = (target - current).coerceAtLeast(0)
+                            tvRemaining.text = "$remaining kcal"
+                            
+                            Animation.animateProgress(pbCircle, lastProgress, current)
+                            lastProgress = current
+                        }
+                    }
+                    
+                    launch {
+                        database.mealDao().getTodayMeals().collectLatest { meals ->
+                            val morning = meals.filter { it.mealType == "Sáng" }.sumOf { it.calories }
+                            val lunch = meals.filter { it.mealType == "Trưa" }.sumOf { it.calories }
+                            val afternoon = meals.filter { it.mealType == "Chiều" }.sumOf { it.calories }
+                            val dinner = meals.filter { it.mealType == "Tối" }.sumOf { it.calories }
+                            
+                            val maxCal = listOf(morning, lunch, afternoon, dinner).maxOrNull()?.coerceAtLeast(1) ?: 1
+                            val maxHeightPx = 130 * resources.displayMetrics.density
+                            
+                            view.findViewById<View>(R.id.bar_morning)?.layoutParams?.height = (morning.toFloat() / maxCal * maxHeightPx).toInt().coerceAtLeast(20)
+                            view.findViewById<View>(R.id.bar_lunch)?.layoutParams?.height = (lunch.toFloat() / maxCal * maxHeightPx).toInt().coerceAtLeast(20)
+                            view.findViewById<View>(R.id.bar_afternoon)?.layoutParams?.height = (afternoon.toFloat() / maxCal * maxHeightPx).toInt().coerceAtLeast(20)
+                            view.findViewById<View>(R.id.bar_dinner)?.layoutParams?.height = (dinner.toFloat() / maxCal * maxHeightPx).toInt().coerceAtLeast(20)
+                            view.findViewById<View>(R.id.bar_morning)?.requestLayout()
+                        }
+                    }
                     
                     launch { database.mealDao().getAllMeals().collectLatest { meals ->
                         val container = view.findViewById<LinearLayout>(R.id.ll_meal_history_container)
@@ -278,6 +353,9 @@ class MainActivity : AppCompatActivity() {
                             Animation.animateItemEntry(item, index)
                         }
                     } }
+                    
+                    view.findViewById<View>(R.id.btn_back)?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.layout_home) } }
+                    view.findViewById<View>(R.id.btn_set_goal)?.setOnClickListener { v -> Animation.applyClick(v) { showCaloriesGoalDialog() } }
                     view.findViewById<View>(R.id.btn_camera_capture)?.setOnClickListener { v -> Animation.applyClick(v) { checkCameraPermission() } }
                 }
             }
@@ -348,8 +426,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateWeightDetailUI(view: View, weight: Double) {
         lifecycleScope.launch {
-            val user = database.userDao().getUser().first()
-            if (user != null && user.height > 0) {
+            val user = userManager.getUser()
+            if (user.height > 0) {
                 val heightInMeters = user.height / 100.0
                 val bmi = weight / (heightInMeters * heightInMeters)
                 view.findViewById<TextView>(R.id.tv_bmi_value)?.text = String.format(Locale.getDefault(), "%.1f", bmi)
@@ -400,6 +478,65 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showCaloriesGoalDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_calories_goal, null)
+        val dialog = AlertDialog.Builder(this, R.style.CustomDialogTheme).setView(dialogView).create()
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val user = userManager.getUser()
+        val etCustom = dialogView.findViewById<EditText>(R.id.et_custom_goal)
+        etCustom.setText(user.targetCalories.toString())
+
+        val options = listOf(
+            dialogView.findViewById<View>(R.id.option_lose_weight),
+            dialogView.findViewById<View>(R.id.option_maintain),
+            dialogView.findViewById<View>(R.id.option_gain_weight),
+            dialogView.findViewById<View>(R.id.option_custom)
+        )
+
+        fun selectOption(selectedId: Int) {
+            options.forEach { option ->
+                if (option.id == selectedId) {
+                    option.setBackgroundResource(R.drawable.bg_goal_item_selected)
+                } else {
+                    option.setBackgroundResource(R.drawable.bg_goal_item_normal)
+                }
+            }
+        }
+
+        options[0].setOnClickListener { 
+            selectOption(it.id)
+            etCustom.setText("1800")
+        }
+        options[1].setOnClickListener { 
+            selectOption(it.id)
+            etCustom.setText("2500")
+        }
+        options[2].setOnClickListener { 
+            selectOption(it.id)
+            etCustom.setText("3000")
+        }
+        options[3].setOnClickListener { 
+            selectOption(it.id)
+        }
+
+        when(user.targetCalories) {
+            1800 -> selectOption(R.id.option_lose_weight)
+            2500 -> selectOption(R.id.option_maintain)
+            3000 -> selectOption(R.id.option_gain_weight)
+            else -> selectOption(R.id.option_custom)
+        }
+
+        dialogView.findViewById<View>(R.id.btn_close).setOnClickListener { dialog.dismiss() }
+        dialogView.findViewById<Button>(R.id.btn_save_goal).setOnClickListener {
+            val newVal = etCustom.text.toString().toIntOrNull() ?: 2500
+            userManager.saveUser(user.copy(targetCalories = newVal))
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
     private fun showUpdateWeightDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_update_weight, null)
         val etWeight = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.et_weight)
@@ -420,8 +557,8 @@ class MainActivity : AppCompatActivity() {
                 if (weight != null) {
                     lifecycleScope.launch {
                         database.weightDao().insertWeight(com.example.better_life.data.entities.WeightRecord(weight = weight))
-                        val user = database.userDao().getUser().first()
-                        user?.let { database.userDao().update(it.copy(weight = weight)) }
+                        val user = userManager.getUser()
+                        userManager.saveUser(user.copy(weight = weight))
                     }
                     dialog.dismiss()
                 } else {

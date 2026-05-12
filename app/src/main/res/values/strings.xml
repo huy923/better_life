@@ -152,9 +152,9 @@
     <string name="distance">Quãng đường</string>
     <string name="activity_history">Lịch sử hoạt động</string>
     <string name="steps">Bước chân</string>
-    <string name="calories_target_format">/ 2,500 kcal</string>
-    <string name="meal_photos_title">📸 Ảnh bữa ăn</string>
-    <string name="save_duration_info">🕒 Lưu 3 ngày</string>
+    <string name="calories_target_format">/ %1$d kcal</string>
+    <string name="meal_photos_title">Ảnh bữa ăn</string>
+    <string name="save_duration_info">Lưu 3 ngày</string>
     <string name="ready_to_measure_hr">Sẵn sàng đo nhịp tim</string>
     <string name="start_measure">BẮT ĐẦU ĐO</string>
     <string name="stop_measure">DỪNG ĐO</string>
@@ -177,5 +177,20 @@
     <string name="weight_example">Ví dụ: 65.5</string>
     <string name="kcal_format">%1$d kcal</string>
     <string name="stop_folow">Dừng theo dõi</string>
+    <string name="hours">giờ</string>
     <string name="save_goal">Lưu mục tiêu</string>
+    <string name="calories_goal_title">Mục tiêu Calories</string>
+    <string name="calories_goal_desc">Chọn mục tiêu phù hợp với bạn</string>
+    <string name="lose_weight">Giảm cân</string>
+    <string name="lose_weight_desc">Thâm hụt ~500 kcal/ngày</string>
+    <string name="maintain_weight">Duy trì</string>
+    <string name="maintain_weight_desc">Cân bằng năng lượng</string>
+    <string name="gain_weight">Tăng cân</string>
+    <string name="gain_weight_desc">Dư thừa ~500 kcal/ngày</string>
+    <string name="custom_goal">Tùy chỉnh</string>
+    <string name="custom_goal_desc">Tự nhập mục tiêu riêng</string>
+    <string name="goal_kcal_day">Mục tiêu (kcal/ngày)</string>
+    <string name="goal_range_info">Khoảng 800 - 8000 kcal</string>
+    <string name="remaining">Còn lại</string>
+    <string name="today_maintain_format">Hôm nay · %1$s</string>
 </resources>

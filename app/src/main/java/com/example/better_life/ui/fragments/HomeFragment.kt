@@ -24,7 +24,10 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     
     private val viewModel: HomeViewModel by viewModels {
-        HomeViewModel.Factory(AppDatabase.getDatabase(requireContext()))
+        HomeViewModel.Factory(
+            AppDatabase.getDatabase(requireContext()),
+            com.example.better_life.data.UserManager(requireContext())
+        )
     }
 
     override fun onCreateView(
@@ -46,14 +49,14 @@ class HomeFragment : Fragment() {
             // Observe User Data
             launch {
                 viewModel.user.collectLatest { user ->
-                    binding.tvUsername.text = user?.name ?: getString(R.string.default_user)
+                    binding.tvUsername.text = user.name ?: getString(R.string.default_user)
                 }
             }
 
             // Observe Heart Rate
             launch {
                 viewModel.latestHeartRate.collectLatest { record ->
-                    binding.cardHeartRate.root.findViewById<android.widget.TextView>(R.id.tv_value).text =
+                    binding.cardHeartRate.tvValue.text =
                         record?.bpm?.toString() ?: "0"
                 }
             }
@@ -61,7 +64,7 @@ class HomeFragment : Fragment() {
             // Observe Calories
             launch {
                 viewModel.todayCalories.collectLatest { calories ->
-                    binding.cardCalories.root.findViewById<android.widget.TextView>(R.id.tv_value).text = 
+                    binding.cardCalories.tvValue.text =
                         calories.toString()
                 }
             }
@@ -71,7 +74,7 @@ class HomeFragment : Fragment() {
                 viewModel.latestSleep.collectLatest { sleep ->
                     sleep?.let {
                         val totalMinutes = (it.endTime - it.startTime) / 60000
-                        binding.cardSleep.root.findViewById<android.widget.TextView>(R.id.tv_value).text = 
+                        binding.cardSleep.tvValue.text =
                             String.format(Locale.getDefault(), "%.1f", totalMinutes / 60.0)
                     }
                 }
@@ -80,8 +83,8 @@ class HomeFragment : Fragment() {
             // Observe Weight
             launch {
                 viewModel.currentWeight.collectLatest { user ->
-                    binding.cardWeight.root.findViewById<android.widget.TextView>(R.id.tv_value).text = 
-                        user?.weight?.toString() ?: "0.0"
+                    binding.cardWeight.tvValue.text =
+                        user.weight.toString() ?: "0.0"
                 }
             }
         }

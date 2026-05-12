@@ -9,7 +9,6 @@ import com.example.better_life.data.entities.*
 
 @Database(
     entities = [
-        User::class,
         HeartRateRecord::class,
         MealRecord::class,
         RunningRecord::class,
@@ -19,11 +18,10 @@ import com.example.better_life.data.entities.*
         SleepDataEntity::class,
         WeightRecord::class
     ],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun userDao(): UserDao
     abstract fun heartRateDao(): HeartRateDao
     abstract fun mealDao(): MealDao
     abstract fun runningDao(): RunningDao

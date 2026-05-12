@@ -1,6 +1,7 @@
 package com.example.better_life.ui.fragments
 
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -31,6 +32,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.graphics.toColorInt
 
 class WeightDetailFragment : Fragment() {
 
@@ -102,10 +105,10 @@ class WeightDetailFragment : Fragment() {
             .setView(dialogBinding.root)
             .create()
 
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
 
         val currentUser = viewModel.user.value
-        dialogBinding.etGoalWeight.setText(currentUser?.targetWeight?.toString() ?: "")
+        dialogBinding.etGoalWeight.setText(currentUser.targetWeight?.toString() ?: "")
 
         dialogBinding.btnUpdate.setOnClickListener {
             val weightStr = dialogBinding.etGoalWeight.text.toString()
@@ -125,28 +128,28 @@ class WeightDetailFragment : Fragment() {
         // Underweight
         ItemBmiRangeBinding.bind(binding.rangeUnder.root).apply {
             dot.setBackgroundResource(R.drawable.bg_indicator_dot)
-            dot.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#4FC3F7"))
+            dot.backgroundTintList = android.content.res.ColorStateList.valueOf("#4FC3F7".toColorInt())
             label.text = getString(R.string.bmi_status_under)
             range.text = "< 18.5"
         }
         // Normal
         ItemBmiRangeBinding.bind(binding.rangeNormal.root).apply {
             dot.setBackgroundResource(R.drawable.bg_indicator_dot)
-            dot.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#2DD1AC"))
+            dot.backgroundTintList = android.content.res.ColorStateList.valueOf("#2DD1AC".toColorInt())
             label.text = getString(R.string.bmi_status_normal)
             range.text = "18.5-24.9"
         }
         // Overweight
         ItemBmiRangeBinding.bind(binding.rangeOver.root).apply {
             dot.setBackgroundResource(R.drawable.bg_indicator_dot)
-            dot.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#FFB74D"))
+            dot.backgroundTintList = android.content.res.ColorStateList.valueOf("#FFB74D".toColorInt())
             label.text = getString(R.string.bmi_status_over)
             range.text = "25-29.9"
         }
         // Obese
         ItemBmiRangeBinding.bind(binding.rangeObese.root).apply {
             dot.setBackgroundResource(R.drawable.bg_indicator_dot)
-            dot.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor("#EF5350"))
+            dot.backgroundTintList = android.content.res.ColorStateList.valueOf("#EF5350".toColorInt())
             label.text = getString(R.string.bmi_status_obese)
             range.text = "≥ 30"
         }
@@ -165,7 +168,7 @@ class WeightDetailFragment : Fragment() {
             xAxis.apply {
                 position = XAxis.XAxisPosition.BOTTOM
                 setDrawGridLines(false)
-                textColor = Color.parseColor("#999999")
+                textColor = "#999999".toColorInt()
                 textSize = 10f
                 granularity = 1f
                 valueFormatter = object : ValueFormatter() {
@@ -178,8 +181,8 @@ class WeightDetailFragment : Fragment() {
 
             axisLeft.apply {
                 setDrawGridLines(true)
-                gridColor = Color.parseColor("#F0F2F5")
-                textColor = Color.parseColor("#999999")
+                gridColor = "#F0F2F5".toColorInt()
+                textColor = "#999999".toColorInt()
                 textSize = 10f
                 setDrawAxisLine(false)
             }
@@ -216,6 +219,7 @@ class WeightDetailFragment : Fragment() {
         }
     }
 
+    @SuppressLint("StringFormatMatches")
     private fun updateStats(history: List<WeightRecord>) {
         if (history.isEmpty()) return
 
@@ -303,7 +307,7 @@ class WeightDetailFragment : Fragment() {
         }
         
         binding.tvBmiStatus.text = getString(statusRes)
-        binding.tvBmiStatus.setTextColor(Color.parseColor(color))
+        binding.tvBmiStatus.setTextColor(color.toColorInt())
         
         // Update BMI Indicator Position
         binding.root.post {
@@ -338,8 +342,8 @@ class WeightDetailFragment : Fragment() {
         }
 
         val dataSet = LineDataSet(entries, "Weight").apply {
-            color = Color.parseColor("#2DD1AC")
-            setCircleColor(Color.parseColor("#2DD1AC"))
+            color = "#2DD1AC".toColorInt()
+            setCircleColor("#2DD1AC".toColorInt())
             lineWidth = 3f
             circleRadius = 4f
             setDrawCircleHole(true)

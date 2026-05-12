@@ -1,5 +1,6 @@
 package com.example.better_life.data
 
+import com.example.better_life.data.UserManager
 import com.example.better_life.data.database.AppDatabase
 import com.example.better_life.data.entities.*
 import kotlinx.coroutines.Dispatchers
@@ -7,10 +8,10 @@ import kotlinx.coroutines.withContext
 import java.util.Calendar
 
 object DemoData {
-    suspend fun insertSampleData(database: AppDatabase) {
+    suspend fun insertSampleData(database: AppDatabase, userManager: UserManager) {
         withContext(Dispatchers.IO) {
             // 1. Sample User
-            database.userDao().insertOrUpdate(
+            userManager.saveUser(
                 User(name = "Nguyễn Văn A", age = 25, height = 170, weight = 65.5)
             )
 
@@ -56,17 +57,6 @@ object DemoData {
             cal.set(Calendar.MILLISECOND, 0)
             val today = cal.timeInMillis
 
-            sleepDao.insert(SleepRecord(
-                startTime = today - 3600000 * 8, // 11 PM
-                endTime = today - 3600000 * 0 + 3600000 * 6 + 1800000, // 6:30 AM
-                deepSleepMinutes = 165,
-                lightSleepMinutes = 135,
-                remSleepMinutes = 120,
-                awakeMinutes = 30,
-                score = 85,
-                recordDate = today // Updated from 'date' to 'recordDate'
-            ))
-            
             // Add more historical data for weekly chart
             for (i in 1..6) {
                 sleepDao.insert(SleepRecord(

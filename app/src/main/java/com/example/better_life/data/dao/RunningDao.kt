@@ -5,7 +5,7 @@ import com.example.better_life.data.entities.RunningRecord
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface RunningDao {
+interface RunningDao  {
     @Query("SELECT * FROM running_records ORDER BY timestamp DESC")
     fun getAllRecords(): Flow<List<RunningRecord>>
 
