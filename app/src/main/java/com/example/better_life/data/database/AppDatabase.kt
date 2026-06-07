@@ -21,6 +21,7 @@ import com.example.better_life.data.entities.*
     version = 6,
     exportSchema = false
 )
+
 abstract class AppDatabase : RoomDatabase() {
     abstract fun heartRateDao(): HeartRateDao
     abstract fun mealDao(): MealDao

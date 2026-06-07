@@ -237,7 +237,6 @@
                 <include android:id="@+id/action_meal" layout="@layout/item_quick_action_meal" />
                 <include android:id="@+id/action_run" layout="@layout/item_quick_action_run" />
                 <include android:id="@+id/action_water" layout="@layout/item_quick_action_water" />
-                <include android:id="@+id/action_weight" layout="@layout/item_quick_action_weight" />
             </LinearLayout>
         </HorizontalScrollView>
 

@@ -94,9 +94,6 @@ class HomeFragment : Fragment() {
         binding.actionMeal.root.setOnClickListener {
             // Navigation logic
         }
-        binding.actionWeight.root.setOnClickListener {
-            showUpdateWeightDialog()
-        }
     }
 
     private fun showUpdateWeightDialog() {

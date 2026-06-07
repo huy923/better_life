@@ -87,6 +87,7 @@
                     app:layout_constraintTop_toBottomOf="@id/btn_back">
 
                     <LinearLayout
+                        android:id="@+id/toggle_walking"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -98,6 +99,7 @@
                             app:tint="@color/white"
                             android:alpha="0.8"/>
                         <TextView
+                            android:id="@+id/tv_walking_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -108,6 +110,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/toggle_running"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -115,7 +118,14 @@
                         android:backgroundTint="@color/white"
                         android:gravity="center">
                         <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_run" app:tint="#26CE8D" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:text="@string/running" android:textColor="#26CE8D" android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tv_running_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/running"
+                            android:textColor="#26CE8D"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 

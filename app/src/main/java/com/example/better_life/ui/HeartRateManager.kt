@@ -13,6 +13,7 @@ import com.example.better_life.Animation
 import com.example.better_life.R
 import com.example.better_life.data.database.AppDatabase
 import com.example.better_life.services.HeartRateService
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -21,13 +22,12 @@ import java.util.Locale
 
 class HeartRateManager(
     private val context: Context,
-    private val database: AppDatabase,
-    private val scope: LifecycleCoroutineScope
+    private val database: AppDatabase
 ) {
     var isTracking = false
         private set
 
-    fun setupHeartRateUI(view: View) {
+    fun setupHeartRateUI(view: View, uiScope: CoroutineScope) {
         val btnStart = view.findViewById<View>(R.id.btn_start_hr)
         btnStart?.setOnClickListener { v ->
             Animation.applyClick(v) {
@@ -38,13 +38,13 @@ class HeartRateManager(
         }
         updateStatusUI(view)
 
-        scope.launch {
+        uiScope.launch {
             database.heartRateDao().getLatestRecord().collectLatest { it?.let { 
                 view.findViewById<TextView>(R.id.tv_current_bpm)?.text = it.bpm.toString()
             } }
         }
 
-        scope.launch {
+        uiScope.launch {
             database.heartRateDao().getAllRecords().collectLatest { records ->
                 val container = view.findViewById<LinearLayout>(R.id.ll_hr_history_container)
                 container?.removeAllViews()

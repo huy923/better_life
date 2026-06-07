@@ -55,7 +55,7 @@ class CameraHeartRateSensor(private val context: Context){
                 override fun onDisconnected(camera: CameraDevice) { cleanup() }
                 override fun onError(camera: CameraDevice, error: Int) {
                     Log.e(TAG, "Camera error: $error")
-                    handler.post { kotlinx.coroutines.runBlocking { _statusFlow.emit(SensorStatus.ERROR) } }
+                    _statusFlow.tryEmit(SensorStatus.ERROR)
                 }
             }, handler)
         } catch (e: SecurityException) {
@@ -89,10 +89,10 @@ class CameraHeartRateSensor(private val context: Context){
                         set(CaptureRequest.SENSOR_EXPOSURE_TIME, EXPOSURE_NS)
                     }
                     session.setRepeatingRequest(request.build(), null, handler)
-                    handler.post { kotlinx.coroutines.runBlocking { _statusFlow.emit(SensorStatus.MEASURING) } }
+                    _statusFlow.tryEmit(SensorStatus.MEASURING)
                 }
                 override fun onConfigureFailed(session: CameraCaptureSession) {
-                    handler.post { kotlinx.coroutines.runBlocking { _statusFlow.emit(SensorStatus.ERROR) } }
+                    _statusFlow.tryEmit(SensorStatus.ERROR)
                 }
             }, handler
         )
@@ -117,7 +117,7 @@ class CameraHeartRateSensor(private val context: Context){
         val std  = stdDev(intensityBuffer, mean)
 
         if (std < FINGER_DETECTION_THRESHOLD) {
-            kotlinx.coroutines.runBlocking { _statusFlow.emit(SensorStatus.FINGER_NOT_DETECTED) }
+            _statusFlow.tryEmit(SensorStatus.FINGER_NOT_DETECTED)
             return
         }
 
@@ -136,10 +136,8 @@ class CameraHeartRateSensor(private val context: Context){
                 if (peakTimestamps.size >= 4) {
                     val bpm = calculateBpm()
                     if (bpm in 30..220) {
-                        kotlinx.coroutines.runBlocking {
-                            _statusFlow.emit(SensorStatus.MEASURING)
-                            _bpmFlow.emit(bpm)
-                        }
+                        _statusFlow.tryEmit(SensorStatus.MEASURING)
+                        _bpmFlow.tryEmit(bpm)
                     }
                 }
             }

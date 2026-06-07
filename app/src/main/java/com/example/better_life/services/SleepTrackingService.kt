@@ -1,5 +1,6 @@
 package com.example.better_life.services
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -14,17 +15,18 @@ import com.example.better_life.R
 import com.example.better_life.data.database.AppDatabase
 import com.example.better_life.data.entities.SleepDataEntity
 import com.example.better_life.data.entities.SleepSessionEntity
+import com.example.better_life.data.entities.SleepRecord
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.sqrt
+import kotlin.math.log10
 
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.content.IntentFilter
 import android.content.BroadcastReceiver
-import kotlin.math.log10
 
 class SleepTrackingService : Service(), SensorEventListener {
 
@@ -68,6 +70,7 @@ class SleepTrackingService : Service(), SensorEventListener {
         const val SAMPLING_INTERVAL_MS = 10000L // 10 seconds
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate() {
         super.onCreate()
         database = AppDatabase.getDatabase(this)
@@ -77,7 +80,11 @@ class SleepTrackingService : Service(), SensorEventListener {
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BetterLife::SleepWakeLock")
 
-        registerReceiver(chargingReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(chargingReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED), RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(chargingReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -90,6 +97,9 @@ class SleepTrackingService : Service(), SensorEventListener {
         createNotificationChannel()
         startForeground(NOTIFICATION_ID, buildNotification("Đang chờ cắm sạc để bắt đầu..."))
         
+        // Initial check for charging status
+        resumeTracking()
+
         return START_STICKY
     }
 
@@ -249,13 +259,46 @@ class SleepTrackingService : Service(), SensorEventListener {
         samplingHandler.removeCallbacksAndMessages(null)
         sensorManager.unregisterListener(this)
         wakeLock?.let { if (it.isHeld) it.release() }
+        try {
+            unregisterReceiver(chargingReceiver)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         
         scope.launch {
             val session = database.sleepTrackingDao().getSessionById(currentSessionId)
             session?.let {
-                it.endTime = System.currentTimeMillis()
-                it.totalDuration = ((it.endTime - it.startTime) / 60000).toInt()
+                val endTime = System.currentTimeMillis()
+                it.endTime = endTime
+                it.totalDuration = ((endTime - it.startTime) / 60000).toInt()
                 database.sleepTrackingDao().updateSession(it)
+                
+                // Aggregate data into SleepRecord
+                val rawData = database.sleepTrackingDao().getSleepDataForSession(currentSessionId)
+                if (rawData.isNotEmpty()) {
+                    val samplesPerMin = 60000.0 / SAMPLING_INTERVAL_MS
+                    val deep = (rawData.count { d -> d.stage == 2 } / samplesPerMin).toInt()
+                    val light = (rawData.count { d -> d.stage == 1 } / samplesPerMin).toInt()
+                    val rem = (rawData.count { d -> d.stage == 3 } / samplesPerMin).toInt()
+                    val awake = (rawData.count { d -> d.stage == 0 } / samplesPerMin).toInt()
+                    
+                    val totalMinutes = deep + light + rem + awake
+                    val score = if (totalMinutes > 0) {
+                        ((deep * 1.0 + rem * 0.7 + light * 0.3) / 480.0 * 100).toInt().coerceAtMost(100)
+                    } else 0
+                    
+                    val record = SleepRecord(
+                        startTime = it.startTime,
+                        endTime = endTime,
+                        deepSleepMinutes = deep,
+                        lightSleepMinutes = light,
+                        remSleepMinutes = rem,
+                        awakeMinutes = awake,
+                        score = score,
+                        recordDate = System.currentTimeMillis()
+                    )
+                    database.sleepDao().insert(record)
+                }
             }
         }
         super.onDestroy()

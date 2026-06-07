@@ -45,6 +45,7 @@ import com.example.better_life.services.TrackingService
 import com.example.better_life.ui.HeartRateManager
 import com.example.better_life.ui.RunningManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
@@ -64,12 +65,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var heartRateManager: HeartRateManager
     private lateinit var runningManager: RunningManager
 
+    private var bindingJob: kotlinx.coroutines.Job? = null
+
     private val trackingReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == TrackingService.ACTION_UPDATE) {
                 runningManager.currentDistance = intent.getFloatExtra(TrackingService.EXTRA_DISTANCE, 0f)
                 runningManager.currentDuration = intent.getLongExtra(TrackingService.EXTRA_DURATION, 0L)
-                runningManager.updateUI(container.getChildAt(0))
+                if (currentLayoutId == R.layout.layout_running_detail) {
+                    runningManager.updateUI()
+                }
             }
         }
     }
@@ -94,21 +99,19 @@ class MainActivity : AppCompatActivity() {
         database = AppDatabase.getDatabase(this)
         userManager = UserManager(this)
         stepCounterManager = StepCounterManager(this)
-        heartRateManager = HeartRateManager(this, database, lifecycleScope)
+        heartRateManager = HeartRateManager(this, database)
         runningManager = RunningManager(this, database, lifecycleScope, stepCounterManager)
         
         savedInstanceState?.let {
             currentLayoutId = it.getInt("CURRENT_LAYOUT_ID", R.layout.layout_home)
         }
 
-//        lifecycleScope.launch {
-//            val user = userManager.getUser()
-//            // We can check if name is default to decide if we need sample data
-//            if (user.name == "Nguyễn Văn A" && user.weight == 65.5) {
-//                // For demo, we still might want to insert other sample data
-//                DemoData.insertSampleData(database, userManager)
-//            }
-//        }
+        lifecycleScope.launch {
+            val user = userManager.getUser()
+            if (user.name == "Nguyễn Văn A" && user.weight == 65.5) {
+                DemoData.insertSampleData(database, userManager)
+            }
+        }
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.TRANSPARENT
@@ -171,6 +174,8 @@ class MainActivity : AppCompatActivity() {
     private fun showLayout(layoutId: Int, animate: Boolean = true) {
         currentLayoutId = layoutId
         
+        bindingJob?.cancel()
+        
         if (animate) {
             val fade = Fade()
             fade.duration = 300
@@ -190,7 +195,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        bindDataToView(layoutId, view)
+        bindingJob = lifecycleScope.launch {
+            bindDataToView(layoutId, view)
+        }
+        
         if (layoutId == R.layout.fragment_settings) setupSettingsPage(view)
     }
 
@@ -224,12 +232,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("StringFormatMatches", "StringFormatInvalid")
-    private fun bindDataToView(layoutId: Int, view: View) {
-        lifecycleScope.launch {
+    private suspend fun bindDataToView(layoutId: Int, view: View) {
+        coroutineScope {
             when (layoutId) {
                 R.layout.layout_home -> {
                     launch { userManager.userFlow.collectLatest { it?.let { view.findViewById<TextView>(R.id.tv_username)?.text = it.name } } }
                     
+                    launch {
+                        combine(stepCounterManager.steps, userManager.userFlow) { steps, user ->
+                            Pair(steps, user.targetSteps)
+                        }.collectLatest { (steps, target) ->
+                            view.findViewById<TextView>(R.id.tv_home_steps)?.text = steps.toString()
+                            val pb = view.findViewById<ProgressBar>(R.id.pb_home_steps)
+                            pb?.max = target
+                            pb?.progress = steps
+                            view.findViewById<TextView>(R.id.tv_steps_goal)?.text = getString(R.string.steps_goal_format, target)
+                        }
+                    }
+
                     launch { database.heartRateDao().getLatestRecord().collectLatest { it?.let { 
                         val cardHr = view.findViewById<View>(R.id.card_heart_rate)
                         cardHr?.findViewById<TextView>(R.id.tv_value)?.text = it.bpm.toString()
@@ -269,16 +289,40 @@ class MainActivity : AppCompatActivity() {
 
                     view.findViewById<View>(R.id.action_meal)?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.layout_calories_detail) } }
                     view.findViewById<View>(R.id.action_run)?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.layout_running_detail) } }
-                    view.findViewById<View>(R.id.action_weight)?.setOnClickListener { v -> Animation.applyClick(v) { showUpdateWeightDialog() } }
                 }
 
                 R.layout.fragment_weight_detail -> {
                     setupWeightDetailUI(view)
                 }
 
-                R.layout.layout_heart_rate_detail -> heartRateManager.setupHeartRateUI(view)
+                R.layout.layout_heart_rate_detail -> heartRateManager.setupHeartRateUI(view, this)
 
-                R.layout.layout_running_detail -> runningManager.setupRunningUI(view)
+                R.layout.layout_running_detail -> runningManager.setupRunningUI(view, this)
+
+                R.layout.layout_sleep_detail -> {
+                    launch {
+                        database.sleepDao().getLatestRecord().collectLatest { record ->
+                            record?.let {
+                                val totalMinutes = (it.endTime - it.startTime) / 60000
+                                val hours = totalMinutes / 60
+                                val minutes = totalMinutes % 60
+                                view.findViewById<TextView>(R.id.tv_sleep_duration)?.text = String.format(Locale.getDefault(), "%dh %02dp", hours, minutes)
+                                view.findViewById<TextView>(R.id.tv_sleep_score)?.text = it.score.toString()
+                                
+                                val sdf = java.text.SimpleDateFormat("HH:mm", Locale.getDefault())
+                                view.findViewById<TextView>(R.id.tv_sleep_start)?.text = sdf.format(java.util.Date(it.startTime))
+                                view.findViewById<TextView>(R.id.tv_sleep_end)?.text = sdf.format(java.util.Date(it.endTime))
+                                
+                                view.findViewById<TextView>(R.id.tv_deep_sleep_duration_summary)?.text = String.format(Locale.getDefault(), "%dh %02dp", it.deepSleepMinutes / 60, it.deepSleepMinutes % 60)
+                                view.findViewById<TextView>(R.id.tv_deep_sleep_duration)?.text = String.format(Locale.getDefault(), "%dh %02dp", it.deepSleepMinutes / 60, it.deepSleepMinutes % 60)
+                                view.findViewById<TextView>(R.id.tv_light_sleep_duration)?.text = String.format(Locale.getDefault(), "%dh %02dp", it.lightSleepMinutes / 60, it.lightSleepMinutes % 60)
+                                view.findViewById<TextView>(R.id.tv_rem_duration)?.text = String.format(Locale.getDefault(), "%dh %02dp", it.remSleepMinutes / 60, it.remSleepMinutes % 60)
+                                view.findViewById<TextView>(R.id.tv_awake_duration)?.text = String.format(Locale.getDefault(), "%d phút", it.awakeMinutes)
+                            }
+                        }
+                    }
+                    view.findViewById<View>(R.id.btn_back)?.setOnClickListener { v -> Animation.applyClick(v) { showLayout(R.layout.layout_home) } }
+                }
 
                 R.layout.layout_calories_detail -> {
                     val tvTotal = view.findViewById<TextView>(R.id.tv_calories_total)
@@ -291,36 +335,32 @@ class MainActivity : AppCompatActivity() {
                     var lastProgress = 0
                     
                     launch {
-                        userManager.userFlow.collect { user ->
-                            tvTarget.text = "/ ${user.targetCalories} kcal"
-                            pbCircle.max = user.targetCalories
-                            
-                            val current = lastTotal
-                            val remaining = (user.targetCalories - current).coerceAtLeast(0)
-                            tvRemaining.text = "$remaining kcal"
-
-                            val status = when {
-                                user.targetCalories <= 1800 -> getString(R.string.lose_weight)
-                                user.targetCalories <= 2500 -> getString(R.string.maintain_weight)
-                                user.targetCalories <= 3000 -> getString(R.string.gain_weight)
-                                else -> getString(R.string.custom_goal)
-                            }
-                            tvTodayStatus.text = "Hôm nay · $status"
-                        }
-                    }
-
-                    launch {
-                        database.mealDao().getTodayTotalCalories().collect { total ->
-                            val current = total ?: 0
+                        combine(
+                            database.mealDao().getTodayTotalCalories(),
+                            userManager.userFlow
+                        ) { total: Int?, user: User ->
+                            Pair(total ?: 0, user)
+                        }.collectLatest { (total, user) ->
+                            val current = total
                             Animation.animateTextValue(tvTotal, lastTotal, current)
                             lastTotal = current
                             
-                            val target = userManager.getUser().targetCalories
+                            val target = user.targetCalories
                             val remaining = (target - current).coerceAtLeast(0)
                             tvRemaining.text = "$remaining kcal"
                             
+                            tvTarget.text = "/ $target kcal"
+                            pbCircle.max = target
                             Animation.animateProgress(pbCircle, lastProgress, current)
                             lastProgress = current
+
+                            val status = when {
+                                target <= 1800 -> getString(R.string.lose_weight)
+                                target <= 2500 -> getString(R.string.maintain_weight)
+                                target <= 3000 -> getString(R.string.gain_weight)
+                                else -> getString(R.string.custom_goal)
+                            }
+                            tvTodayStatus.text = "Hôm nay · $status"
                         }
                     }
                     
@@ -358,6 +398,7 @@ class MainActivity : AppCompatActivity() {
                     view.findViewById<View>(R.id.btn_set_goal)?.setOnClickListener { v -> Animation.applyClick(v) { showCaloriesGoalDialog() } }
                     view.findViewById<View>(R.id.btn_camera_capture)?.setOnClickListener { v -> Animation.applyClick(v) { checkCameraPermission() } }
                 }
+                else -> {}
             }
         }
     }
@@ -367,9 +408,9 @@ class MainActivity : AppCompatActivity() {
             R.layout.layout_home -> R.id.nav_home
             R.layout.fragment_weight_detail -> R.id.nav_health
             R.layout.layout_heart_rate_detail -> R.id.nav_health
-            R.id.nav_chatbox -> R.id.nav_chatbox
-            R.id.nav_goals -> R.id.nav_goals
-            R.id.nav_settings -> R.id.nav_settings
+            R.layout.fragment_chat_ai -> R.id.nav_chatbox
+            R.layout.fragment_goals -> R.id.nav_goals
+            R.layout.fragment_settings -> R.id.nav_settings
             else -> R.id.nav_home
         }
         bottomNav.selectedItemId = itemId
@@ -389,49 +430,64 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) { Toast.makeText(this, getString(R.string.camera_error, e.message), Toast.LENGTH_SHORT).show() }
     }
 
-    private fun setupWeightDetailUI(view: View) {
-        lifecycleScope.launch {
-            launch {
-                database.weightDao().getLatestWeight().collectLatest { record ->
-                    record?.let {
-                        view.findViewById<TextView>(R.id.tv_current_weight)?.text = String.format(Locale.getDefault(), "%.1f", it.weight)
-                        updateWeightDetailUI(view, it.weight)
-                    }
-                }
-            }
-            
-            launch {
-                database.weightDao().getAllWeights().collectLatest { weights ->
-                    val container = view.findViewById<LinearLayout>(R.id.ll_weight_history_container) ?: return@collectLatest
-                    container.removeAllViews()
-                    weights.take(10).forEachIndexed { index, record ->
-                        val item = LayoutInflater.from(this@MainActivity).inflate(R.layout.item_weight_history, container, false)
-                        item.findViewById<TextView>(R.id.tv_weight_value).text = String.format(Locale.getDefault(), "%.1f kg", record.weight)
-                        val date = java.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(java.util.Date(record.timestamp))
-                        item.findViewById<TextView>(R.id.tv_date).text = date
-                        container.addView(item)
-                        Animation.animateItemEntry(item, index)
-                    }
-                    if (weights.isNotEmpty()) {
-                        updateWeightChart(view, weights)
-                    }
-                }
-            }
+    @SuppressLint("SetTextI18n")
+    private suspend fun setupWeightDetailUI(view: View) {
+        view.findViewById<View>(R.id.btn_add_weight)?.setOnClickListener { v ->
+            Animation.applyClick(v) { showUpdateWeightDialog() }
         }
-        
-        view.findViewById<View>(R.id.btn_add_weight)?.setOnClickListener { v -> 
-            Animation.applyClick(v) { showUpdateWeightDialog() } 
-        }
-    }
 
-    private fun updateWeightDetailUI(view: View, weight: Double) {
-        lifecycleScope.launch {
+        database.weightDao().getAllWeights().collectLatest { weights ->
+            val latest = weights.firstOrNull()
+
+            // Current weight
+            latest?.let {
+                view.findViewById<TextView>(R.id.tv_current_weight)?.text = String.format(Locale.getDefault(), "%.1f", it.weight)
+            }
+
+            // Weight diff badges
+            if (weights.size >= 2 && latest != null) {
+                val diffLast = latest.weight - weights[1].weight
+                val signLast = if (diffLast >= 0) "↗" else "↘"
+                view.findViewById<TextView>(R.id.tv_diff_last)?.text = "$signLast ${String.format(Locale.getDefault(), "%.1f", kotlin.math.abs(diffLast))} kg lần trước"
+
+                val firstWeight = weights.last().weight
+                val diffTotal = latest.weight - firstWeight
+                val signTotal = if (diffTotal >= 0) "↗" else "↘"
+                view.findViewById<TextView>(R.id.tv_diff_total)?.text = "$signTotal ${String.format(Locale.getDefault(), "%.1f", kotlin.math.abs(diffTotal))} kg tổng"
+            }
+
+            // Goal
             val user = userManager.getUser()
+            val targetW = user.targetWeight ?: 65.0
+            view.findViewById<TextView>(R.id.tv_goal_weight)?.text = String.format(Locale.getDefault(), "%.0f", targetW)
+            if (latest != null) {
+                val remaining = latest.weight - targetW
+                val startWeight = weights.last().weight
+                val totalChange = startWeight - targetW
+                val achievedChange = startWeight - latest.weight
+                val progress = if (kotlin.math.abs(totalChange) > 0.1) {
+                    ((achievedChange / totalChange) * 100).toInt().coerceIn(0, 100)
+                } else {
+                    0
+                }
+                view.findViewById<ProgressBar>(R.id.progress_goal)?.progress = progress
+                if (remaining > 0) {
+                    view.findViewById<TextView>(R.id.tv_goal_remaining)?.text = "Còn ${String.format(Locale.getDefault(), "%.1f", remaining)} kg"
+                } else {
+                    view.findViewById<TextView>(R.id.tv_goal_remaining)?.text = "Đã đạt mục tiêu!"
+                }
+            }
+
+            // Height info
             if (user.height > 0) {
-                val heightInMeters = user.height / 100.0
-                val bmi = weight / (heightInMeters * heightInMeters)
+                view.findViewById<TextView>(R.id.tv_height_info)?.text = "Chiều cao: ${user.height} cm"
+            }
+
+            // BMI
+            if (user.height > 0 && latest != null) {
+                val heightM = user.height / 100.0
+                val bmi = latest.weight / (heightM * heightM)
                 view.findViewById<TextView>(R.id.tv_bmi_value)?.text = String.format(Locale.getDefault(), "%.1f", bmi)
-                
                 val statusText = when {
                     bmi < 18.5 -> getString(R.string.bmi_status_under)
                     bmi < 25 -> getString(R.string.bmi_status_normal)
@@ -439,6 +495,43 @@ class MainActivity : AppCompatActivity() {
                     else -> getString(R.string.bmi_status_obese)
                 }
                 view.findViewById<TextView>(R.id.tv_bmi_status)?.text = statusText
+                view.findViewById<TextView>(R.id.tv_bmi_indicator_val)?.text = String.format(Locale.getDefault(), "%.1f", bmi)
+
+                // Position indicator on BMI scale
+                val bmiClamped = bmi.coerceIn(13.0, 40.0)
+                val position = ((bmiClamped - 13.0) / (40.0 - 13.0)).coerceIn(0.0, 1.0)
+                val scaleBg = view.findViewById<View>(R.id.bmi_scale_bg)
+                if (scaleBg != null) {
+                    scaleBg.post {
+                        val parent = scaleBg.parent as? android.view.ViewGroup
+                        val scaleWidth = parent?.width ?: scaleBg.width
+                        if (scaleWidth > 0) {
+                            val indicatorX = (position * (scaleWidth - 18)).toInt()
+                            val indicator = view.findViewById<View>(R.id.iv_bmi_indicator)
+                            indicator?.let {
+                                val lp = it.layoutParams as? androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
+                                lp?.marginStart = indicatorX
+                                if (lp != null) it.layoutParams = lp
+                            }
+                        }
+                    }
+                }
+            }
+
+            // History container
+            val container = view.findViewById<LinearLayout>(R.id.ll_weight_history_container) ?: return@collectLatest
+            container.removeAllViews()
+            view.findViewById<TextView>(R.id.tv_history_count)?.text = weights.size.toString()
+            weights.take(10).forEachIndexed { index, record ->
+                val item = LayoutInflater.from(this@MainActivity).inflate(R.layout.item_weight_history, container, false)
+                item.findViewById<TextView>(R.id.tv_weight_value).text = String.format(Locale.getDefault(), "%.1f kg", record.weight)
+                val date = java.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(java.util.Date(record.timestamp))
+                item.findViewById<TextView>(R.id.tv_date).text = date
+                container.addView(item)
+                Animation.animateItemEntry(item, index)
+            }
+            if (weights.isNotEmpty()) {
+                updateWeightChart(view, weights)
             }
         }
     }
